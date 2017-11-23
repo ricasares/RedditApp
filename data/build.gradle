@@ -1,0 +1,50 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+
+
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation project(':domain')
+
+    def dependencies = rootProject.ext.dataDependencies
+    implementation dependencies.supportAppCompatv7
+
+    implementation dependencies.dagger
+    kapt dependencies.daggerCompiler
+
+    implementation dependencies.retrofit
+    implementation dependencies.retrofitRxAdapter
+    implementation dependencies.retrofitGsonConverter
+
+    def testDependencies = rootProject.ext.dataTestDependencies
+    testImplementation testDependencies.junit
+    androidTestImplementation testDependencies.runner
+    androidTestImplementation testDependencies.espresso
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+}
+repositories {
+    mavenCentral()
+}
