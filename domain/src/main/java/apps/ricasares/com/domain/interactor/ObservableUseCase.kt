@@ -10,7 +10,7 @@ import io.reactivex.disposables.Disposable
 /**
  * Created by rush on 11/21/17.
  */
-abstract class ObservableUseCase<T, Params> constructor(
+abstract class ObservableUseCase<T, Params> (
         private val subscribeOn: SubscribeOn,
         private val observeOn: ObserveOn) {
 

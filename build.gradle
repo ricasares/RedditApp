@@ -73,7 +73,7 @@ ext {
     ]
 
     dataDependencies = [
-            supportAppCompatv7:       "com.android.support:appcompat-v7:${supportAppCompatVersion}",
+            supportAppCompatv7:     "com.android.support:appcompat-v7:${supportAppCompatVersion}",
             retrofit:               "com.squareup.retrofit2:retrofit:${retrofitVersion}",
             retrofitGsonConverter:  "com.squareup.retrofit2:converter-gson:${retrofitVersion}",
             retrofitRxAdapter:      "com.squareup.retrofit2:adapter-rxjava2:${retrofitRxJava2AdapterVersion}",
@@ -96,6 +96,6 @@ ext {
     ]
 
     domainDependencies = [
-            rxJava:                 "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
+            rxJava:     "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
     ]
 }

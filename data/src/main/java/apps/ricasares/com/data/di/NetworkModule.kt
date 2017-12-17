@@ -21,7 +21,7 @@ class NetworkModule {
     @Singleton
     fun provideOkHttp() : OkHttpClient {
         val okHttpBuilder: OkHttpClient.Builder = OkHttpClient().newBuilder()
-        return okHttpBuilder.build();
+        return okHttpBuilder.build()
     }
 
     @Provides

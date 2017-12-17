@@ -10,8 +10,4 @@ import apps.ricasares.com.domain.entity.Listing
 open class ListingMapper() : Mapper<Link, Listing> {
     override fun mapToEntity(source: Link): Listing =
             Listing(source.title, source.subreddit, source.thumbnail, source.score, source.num_comments, source.created_utc)
-
-    /*override fun mapFromEntity(source: Listing): Link {
-        return Link();
-    }*/
 }

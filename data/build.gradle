@@ -32,9 +32,11 @@ dependencies {
     def dependencies = rootProject.ext.dataDependencies
     implementation dependencies.supportAppCompatv7
 
+    // dagger
     implementation dependencies.dagger
     kapt dependencies.daggerCompiler
 
+    // retrofit
     implementation dependencies.retrofit
     implementation dependencies.retrofitRxAdapter
     implementation dependencies.retrofitGsonConverter
