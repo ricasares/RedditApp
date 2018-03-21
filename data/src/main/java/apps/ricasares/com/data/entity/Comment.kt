@@ -1,7 +1,7 @@
-package apps.ricasares.com.data.model
+package apps.ricasares.com.data.entity
 
 /**
- * Created by rush on 11/17/17.
+ * Created by ricardo casarez on 11/17/17.
  */
 data class Comment(
         val ups: Int,

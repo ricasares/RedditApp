@@ -1,9 +1,9 @@
-package apps.ricasares.com.domain.entity
+package apps.ricasares.com.domain.model
 
 /**
  * Created by rush on 11/20/17.
  */
-data class Listing (
+data class Entry(
         val title: String,
         val subReddit: String,
         val thumb: String,

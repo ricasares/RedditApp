@@ -1,7 +1,7 @@
 package apps.ricasares.com.data.network
 
 import apps.ricasares.com.data.di.DaggerDataComponent
-import apps.ricasares.com.data.model.RedditResponse
+import apps.ricasares.com.data.entity.RedditResponse
 import io.reactivex.observers.TestObserver
 import network.RedditApi
 import org.junit.Test
@@ -10,7 +10,7 @@ import org.junit.Test
  * Created by ricardo on 11/17/17.
  */
 class RdditApiTest {
-    var redditApi: RedditApi = DaggerDataComponent.create().redditApi()
+    val redditApi: RedditApi = DaggerDataComponent.create().redditApi()
 
     @Test
     fun testListing() {
