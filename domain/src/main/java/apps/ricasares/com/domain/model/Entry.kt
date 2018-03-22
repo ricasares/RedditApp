@@ -1,7 +1,7 @@
 package apps.ricasares.com.domain.model
 
 /**
- * Created by rush on 11/20/17.
+ * Created by ricardo casarez on 11/20/17.
  */
 data class Entry(
         val title: String,

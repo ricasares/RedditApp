@@ -1,7 +1,7 @@
 package apps.ricasares.com.domain.model
 
 /**
- * Created by rush on 12/28/17.
+ * Created by ricardo casarez on 12/28/17.
  */
 data class Listing(
     val kind: String,

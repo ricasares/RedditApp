@@ -4,7 +4,7 @@ import io.reactivex.SingleObserver
 import io.reactivex.disposables.Disposable
 
 /**
- * Created by rush on 11/21/17.
+ * Created by ricardo casarez on 11/21/17.
  */
 open class BaseSingleObserver<T> : SingleObserver<T> {
     override fun onError(e: Throwable?) {}
