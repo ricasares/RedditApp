@@ -2,36 +2,35 @@ package apps.ricasares.com.domain.interactor
 
 import apps.ricasares.com.domain.schedulers.ObserveOn
 import apps.ricasares.com.domain.schedulers.SubscribeOn
-import io.reactivex.Single
+import io.reactivex.Flowable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
-import io.reactivex.observers.DisposableSingleObserver
+import io.reactivex.subscribers.DisposableSubscriber
 
 /**
- * Created by ricardo casarez on 11/20/17.
+ * Created by ricardo casarez on 3/22/18.
  */
-abstract class SingleUseCase<T, in Params> (
+abstract class FlowableUseCase<T, in Params> (
         private val subscribeOn: SubscribeOn,
-        private val observeOn: ObserveOn) {
+        private val observeOn: ObserveOn){
 
     private val disposables: CompositeDisposable = CompositeDisposable()
 
-    protected abstract fun buildUseCaseObservable(params: Params? = null): Single<T>
+    protected abstract fun buildUseCaseObservable(params: Params? = null): Flowable<T>
 
-    open fun execute(observer: DisposableSingleObserver<T>, params: Params? = null) {
+    open fun execute(observer: DisposableSubscriber<T>, params: Params? = null) {
         addDisposable(buildUseCaseObservable(params)
                 .subscribeOn(subscribeOn.scheduler())
                 .observeOn(observeOn.scheduler())
-                .subscribeWith(observer))
-    }
-
-    private fun dispose() {
-        if (!disposables.isDisposed) {
-            disposables.dispose()
-        }
+                .subscribeWith(observer)
+        )
     }
 
     private fun addDisposable(disposable: Disposable) {
         disposables.add(disposable)
+    }
+
+    fun dispose() {
+        if (!disposables.isDisposed) disposables.dispose()
     }
 }

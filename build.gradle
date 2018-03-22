@@ -98,4 +98,11 @@ ext {
     domainDependencies = [
             rxJava:     "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
     ]
+
+    domainTestDependencies = [
+            junit:      "junit:junit:${junitVersion}",
+            hamcrest:   "org.hamcrest:hamcrest-library:${hamcrestVersion}",
+            mockito:    "org.mockito:mockito-core:${mockitoVersion}",
+            runner:     "com.android.support.test:runner:${testRunnerVersion}"
+    ]
 }

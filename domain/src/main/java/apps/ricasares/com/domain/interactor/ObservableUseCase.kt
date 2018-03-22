@@ -3,14 +3,14 @@ package apps.ricasares.com.domain.interactor
 import apps.ricasares.com.domain.schedulers.ObserveOn
 import apps.ricasares.com.domain.schedulers.SubscribeOn
 import io.reactivex.Observable
-import io.reactivex.Observer
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
+import io.reactivex.observers.DisposableObserver
 
 /**
- * Created by rush on 11/21/17.
+ * Created by ricardo casarez on 11/21/17.
  */
-abstract class ObservableUseCase<T, Params> (
+abstract class ObservableUseCase<T, in Params> (
         private val subscribeOn: SubscribeOn,
         private val observeOn: ObserveOn) {
 
@@ -18,11 +18,11 @@ abstract class ObservableUseCase<T, Params> (
 
     protected abstract fun buildUseCaseObservable(params: Params? = null) : Observable<T>
 
-    open fun <S> execute(observer: S, params: Params? = null) where S : Observer<T>, S : Disposable{
-        val observable: Observable<T> = buildUseCaseObservable(params)
+    open fun execute(observer: DisposableObserver<T>, params: Params? = null) {
+        addDisposable(buildUseCaseObservable(params)
                 .subscribeOn(subscribeOn.scheduler())
                 .observeOn(observeOn.scheduler())
-        addDisposable(observable.subscribeWith(observer))
+                .subscribeWith(observer))
     }
 
     fun dispose() {
