@@ -1,4 +1,4 @@
-package factory
+package apps.ricasares.com.domain.factory
 
 import apps.ricasares.com.domain.factory.DataFactory
 import apps.ricasares.com.domain.interactor.browse.GetListingUseCase

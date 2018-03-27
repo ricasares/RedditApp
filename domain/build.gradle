@@ -2,14 +2,14 @@ apply plugin: 'java-library'
 apply plugin: 'kotlin'
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     def dependencies = rootProject.ext.domainDependencies
     implementation dependencies.rxJava
     def testDependencies = rootProject.ext.domainTestDependencies
     testImplementation testDependencies.junit
     testImplementation testDependencies.mockito
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
+    implementation project(':mvp')
 }
 
 sourceCompatibility = "1.7"

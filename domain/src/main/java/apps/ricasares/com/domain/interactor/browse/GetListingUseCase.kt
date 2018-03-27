@@ -15,7 +15,7 @@ class GetListingUseCase (
         subscribeOn: SubscribeOn,
         observeOn: ObserveOn) : SingleUseCase<Listing, GetListingUseCase.Params>(subscribeOn, observeOn) {
 
-    public override fun buildUseCaseObservable(params: Params?): Single<Listing> {
+    override public fun buildUseCaseObservable(params: Params?): Single<Listing> {
         return listingRepository.getListings(params!!.subReddit, params!!.listing, params!!.after, params!!.limit)
     }
 

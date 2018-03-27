@@ -3,11 +3,14 @@ package apps.ricasares.com.mvp
 import java.lang.ref.WeakReference
 
 /**
- * Created by rush on 3/21/18.
+ * Created by ricardo on 3/21/18.
  */
-abstract class Presenter<in V : View, in S : ViewState> {
-    private var mView: WeakReference<View>? = null
-    private var mState: S? = null
+open class Presenter<V : View, S : ViewState> {
+    private var mView: WeakReference<V>? = null
+    protected var mState: S? = null
+
+    val view: V?
+        get() = mView?.get()
 
     fun attachView(view: V, state: S) {
         mView = WeakReference(view)
@@ -19,11 +22,12 @@ abstract class Presenter<in V : View, in S : ViewState> {
     }
 
     fun deatachView() {
+        mView?.clear()
         mView = null
         mState = null
     }
 
     fun isViewAttached() : Boolean {
-        return (mView != null && mView?.get() != null)
+        return (mView != null && mView!!.get() != null)
     }
 }

@@ -5,7 +5,7 @@ import apps.ricasares.com.domain.model.Listing
 import apps.ricasares.com.domain.repository.ListingRepository
 import apps.ricasares.com.domain.schedulers.ObserveOn
 import apps.ricasares.com.domain.schedulers.SubscribeOn
-import factory.ParamsFactory
+import apps.ricasares.com.domain.factory.ParamsFactory
 import io.reactivex.Single
 import io.reactivex.observers.TestObserver
 import org.junit.Before
