@@ -4,11 +4,12 @@ import apps.ricasares.com.data.entity.mapper.ListingMapper
 import apps.ricasares.com.domain.model.Listing
 import apps.ricasares.com.domain.repository.ListingRepository
 import io.reactivex.Single
+import javax.inject.Inject
 
 /**
  * Created by ricardo casarez on 12/28/17.
  */
-class ListingRepositoryImp(
+class ListingRepositoryImp @Inject constructor(
         private val dataStoreFactory: ListingDataStoreFactory,
         private val listingMapper: ListingMapper) : ListingRepository {
 

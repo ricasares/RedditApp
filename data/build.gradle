@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -38,20 +39,20 @@ dependencies {
 
     // retrofit
     implementation dependencies.retrofit
-    implementation dependencies.retrofitRxAdapter
-    implementation dependencies.retrofitGsonConverter
+    api dependencies.retrofitRxAdapter
+    api dependencies.retrofitGsonConverter
 
     // room
     implementation dependencies.room
     implementation dependencies.roomRxJava2
-    annotationProcessor dependencies.roomCompiler
+    kapt dependencies.roomCompiler
 
     def testDependencies = rootProject.ext.dataTestDependencies
     testImplementation testDependencies.junit
     testImplementation testDependencies.mockito
     androidTestImplementation testDependencies.runner
     androidTestImplementation testDependencies.espresso
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 }
 repositories {
     mavenCentral()

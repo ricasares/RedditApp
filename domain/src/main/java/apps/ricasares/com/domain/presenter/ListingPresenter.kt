@@ -14,9 +14,9 @@ class ListingPresenter (
         private val getListingsUseCase: GetListingUseCase) : Presenter<ListingView, ListingPresenter.ListingViewState>() {
 
     private val listingObserver = object : DisposableSingleObserver<Listing>() {
-        override fun onSuccess(listing: Listing?) {
+        override fun onSuccess(listing: Listing) {
             view?.hideLoading()
-            view?.showListings(listing!!)
+            view?.showListings(listing)
         }
 
         override fun onError(e: Throwable?) {

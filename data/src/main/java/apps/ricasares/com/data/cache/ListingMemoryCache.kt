@@ -11,11 +11,11 @@ import io.reactivex.Single
  */
 class ListingMemoryCache : ListingCache {
     // todo implement db
-    internal var redditResponse: RedditResponse? = null
+    internal var redditResponse: RedditResponse = RedditResponse()
 
     override fun clearListings(): Completable {
         return Completable.fromAction {
-            redditResponse = null
+            redditResponse = RedditResponse()
         }
     }
 
@@ -30,7 +30,7 @@ class ListingMemoryCache : ListingCache {
     }
 
     override fun isCached(): Single<Boolean> {
-        return Single.just(redditResponse != null)
+        return Single.just(!redditResponse.data.children.isEmpty())
     }
 
     override fun setLastCacheTime(time: Long) {

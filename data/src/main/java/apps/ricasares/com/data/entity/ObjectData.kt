@@ -5,9 +5,17 @@ package apps.ricasares.com.data.entity
  */
 
 data class ObjectData(
-        val before: String,
+        val before: String?,
         val after: String,
         val modhash: String,
         val whitelist_status: String,
         val children: List<Children>
-)
+) {
+    constructor() : this(
+            "",
+            "",
+            "",
+            "",
+            listOf<Children>()
+    )
+}

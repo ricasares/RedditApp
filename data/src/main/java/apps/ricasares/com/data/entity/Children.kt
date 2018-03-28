@@ -6,4 +6,9 @@ package apps.ricasares.com.data.entity
 data class Children(
         val kind: String,
         val data: ChildrenData
-)
+) {
+    constructor() : this(
+            "",
+            ChildrenData()
+    )
+}

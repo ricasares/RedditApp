@@ -10,11 +10,11 @@ import io.reactivex.Single
  * Created by ricardo Casarez on 3/21/18.
  */
 class ListingDbCache : ListingCache {
-    internal var redditResponse: RedditResponse? = null
+    internal var redditResponse: RedditResponse = RedditResponse()
 
     override fun clearListings(): Completable {
         return Completable.fromAction {
-            redditResponse = null
+            redditResponse = RedditResponse()
         }
     }
 
@@ -29,7 +29,7 @@ class ListingDbCache : ListingCache {
     }
 
     override fun isCached(): Single<Boolean> {
-        return Single.just(redditResponse != null)
+        return Single.just(!redditResponse.data.children.isEmpty())
     }
 
     override fun setLastCacheTime(time: Long) {

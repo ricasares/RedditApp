@@ -5,13 +5,15 @@ import apps.ricasares.com.data.entity.RedditResponse
 import io.reactivex.Completable
 import io.reactivex.Single
 import network.RedditApi
+import javax.inject.Inject
+import javax.inject.Named
 
 /**
  * Created by ricardo casarez on 11/22/17.
  */
-class ListingCloudDataStore constructor(
+class ListingCloudDataStore @Inject constructor(
         private val redditApi: RedditApi,
-        private val diskCache: ListingCache) : ListingDataStore {
+        @param:Named("disk_cache") private val diskCache: ListingCache) : ListingDataStore {
 
     override fun getListings(): Single<RedditResponse> {
         throw UnsupportedOperationException()

@@ -10,7 +10,7 @@ import io.reactivex.Single
 /**
  * Created by ricardo casarez on 3/22/18.
  */
-class GetListingUseCase (
+class GetListingUseCase constructor(
         private val listingRepository: ListingRepository,
         subscribeOn: SubscribeOn,
         observeOn: ObserveOn) : SingleUseCase<Listing, GetListingUseCase.Params>(subscribeOn, observeOn) {

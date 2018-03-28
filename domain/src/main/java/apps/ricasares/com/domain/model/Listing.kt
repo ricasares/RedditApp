@@ -5,7 +5,7 @@ package apps.ricasares.com.domain.model
  */
 data class Listing(
     val kind: String,
-    val before: String,
+    val before: String?,
     val after: String,
     val modhash: String,
     val entries: List<Entry>

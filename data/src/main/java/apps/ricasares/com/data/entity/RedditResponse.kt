@@ -6,4 +6,9 @@ package apps.ricasares.com.data.entity
 data class RedditResponse(
         val kind: String,
         val data: ObjectData
-)
+) {
+    constructor() : this(
+            "",
+            ObjectData()
+    )
+}

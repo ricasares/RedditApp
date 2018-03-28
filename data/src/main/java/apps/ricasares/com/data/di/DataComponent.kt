@@ -8,7 +8,7 @@ import javax.inject.Singleton
  * Created by rush on 11/17/17.
  */
 @Singleton
-@Component(modules = arrayOf(DataModule::class, NetworkModule::class))
+@Component(modules = [ DataModule::class, NetworkModule::class ])
 interface DataComponent {
     fun redditApi() : RedditApi
 }

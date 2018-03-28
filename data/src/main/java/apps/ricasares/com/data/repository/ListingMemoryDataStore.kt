@@ -4,17 +4,19 @@ import apps.ricasares.com.data.cache.ListingCache
 import apps.ricasares.com.data.entity.RedditResponse
 import io.reactivex.Completable
 import io.reactivex.Single
+import javax.inject.Inject
+import javax.inject.Named
 
 /**
  * Created by ricardo casarez on 11/21/17.
  */
-class ListingMemoryDataStore constructor(
-        private val memoryCache: ListingCache) : ListingDataStore {
+class ListingMemoryDataStore @Inject constructor(
+        @param:Named("memory_cache") private val memoryCache: ListingCache) : ListingDataStore {
 
     override fun getListings(): Single<RedditResponse> = memoryCache.getListings().singleOrError()
 
     override fun getListings(subReddit: String, listing: String, after: String, limit: Int): Single<RedditResponse> {
-        throw UnsupportedOperationException()
+        return memoryCache.getListings().singleOrError()
     }
 
     override fun saveListings(listings: RedditResponse): Completable {

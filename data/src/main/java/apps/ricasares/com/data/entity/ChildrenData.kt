@@ -40,4 +40,42 @@ data class ChildrenData(
         //val edited: Long, // could be boolean and long
         val distinguished: String,
         val stickied: Boolean
-)
+) {
+    constructor() : this(
+            "",
+            "",
+            "",
+            -1,
+            -1,
+            false,
+            -1,
+            -1,
+            "",
+            "",
+            "",
+            "",
+            false,
+            "",
+            false,
+            false,
+            "",
+            "",
+            false,
+            Media(),
+            Media(),
+            -1,
+            false,
+            "",
+            false,
+            -1,
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            false
+    )
+}

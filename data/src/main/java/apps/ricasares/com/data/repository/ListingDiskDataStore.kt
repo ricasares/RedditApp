@@ -18,7 +18,8 @@ class ListingDiskDataStore constructor(
     }
 
     override fun getListings(subReddit: String, listing: String, after: String, limit: Int): Single<RedditResponse> {
-        throw UnsupportedOperationException()
+        return diskCache.getListings()
+                .singleOrError()
     }
 
     override fun saveListings(listings: RedditResponse): Completable {

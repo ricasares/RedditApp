@@ -11,4 +11,14 @@ data class Media (
         val mod_note: String,
         val is_video: Boolean,
         val distinguished: String
-)
+) {
+    constructor() : this(
+            RedditVideo(),
+            -1,
+            false,
+            false,
+            "",
+            false,
+            ""
+    )
+}

@@ -13,4 +13,16 @@ data class RedditVideo (
         val hls_url: String,
         val is_gif: Boolean,
         val transcoding_status: String
-)
+) {
+    constructor() : this (
+            "",
+            -1,
+            -1,
+            "",
+            "",
+            -1,
+            "",
+            false,
+            ""
+    )
+}
