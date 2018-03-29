@@ -9,5 +9,6 @@ data class Entry(
         val thumb: String,
         val points: Int,
         val commentCount: Int,
-        val date: Long
+        val date: Long,
+        val isGif: Boolean
 )

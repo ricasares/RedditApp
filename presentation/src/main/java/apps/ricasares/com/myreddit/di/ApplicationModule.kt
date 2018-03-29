@@ -14,7 +14,7 @@ import javax.inject.Named
 import javax.inject.Singleton
 
 /**
- * Created by rush on 3/26/18.
+ * Created by ricardo casarez on 3/26/18.
  */
 @Module(includes = [ DataModule::class ])
 class ApplicationModule (private val mApplication: Application){
@@ -26,7 +26,7 @@ class ApplicationModule (private val mApplication: Application){
     fun providesObserveOn() : ObserveOn {
         return object : ObserveOn {
             override fun scheduler(): Scheduler {
-                return Schedulers.newThread()
+                return AndroidSchedulers.mainThread()
             }
         }
     }
@@ -35,7 +35,7 @@ class ApplicationModule (private val mApplication: Application){
     fun providesSubscribeOn() : SubscribeOn {
         return object : SubscribeOn {
             override fun scheduler(): Scheduler {
-                return AndroidSchedulers.mainThread()
+                return Schedulers.newThread()
             }
         }
     }

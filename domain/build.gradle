@@ -1,15 +1,25 @@
 apply plugin: 'java-library'
 apply plugin: 'kotlin'
+apply plugin: 'kotlin-kapt'
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation project(':mvp')
+
     def dependencies = rootProject.ext.domainDependencies
+    // rxJava
     implementation dependencies.rxJava
+
+    // dagger
+    implementation dependencies.dagger
+    kapt dependencies.daggerCompiler
+
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
+
+    // test
     def testDependencies = rootProject.ext.domainTestDependencies
     testImplementation testDependencies.junit
     testImplementation testDependencies.mockito
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
-    implementation project(':mvp')
 }
 
 sourceCompatibility = "1.7"

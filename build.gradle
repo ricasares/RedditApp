@@ -20,6 +20,7 @@ allprojects {
     repositories {
         google()
         jcenter()
+        mavenCentral()
     }
 }
 
@@ -36,19 +37,23 @@ ext {
     // libs
     supportAppCompatVersion = '27.0.1'
     supportDesignVersion = '27.0.1'
+    supportRecyclerViewV7Version = '27.0.1'
+
     daggerVersion = '2.9'
     daggerCompilerVersion = '2.9'
-    rxJavaVersion = '2.0.2'
-    rxAndroidVersion = '2.0.1'
+
+    rxJavaVersion = '2.1.12'
+    rxAndroidVersion = '2.0.2'
     javaxAnnotationVersion = '1.0'
+
     retrofitVersion = '2.3.0'
     retrofitRxJava2AdapterVersion = '2.3.0'
     okHttpInterceptorVersion = '3.8.1'
     gsonVersion = '2.7'
-    butterKnifeVersion = '8.6.0'
-    constraintLayoutVersion = '1.0.0'
+    butterKnifeVersion = '8.8.1'
+    constraintLayoutVersion = '1.0.2'
     icepickVersion = '3.2.0'
-    glideVersion = '3.7.0'
+    glideVersion = '4.6.1'
     roomVersion = '1.1.0-alpha1'
 
     // unit test
@@ -61,13 +66,20 @@ ext {
     testRunnerVersion = '1.0.1'
 
     presentationDependencies = [
+            kotlin:                 "org.jetbrains.kotlin:kotlin-stdlib-jre7:${kotlin_version}",
             supportV4:              "com.android.support:support-v4:${supportAppCompatVersion}",
             supportAppCompatv7:     "com.android.support:appcompat-v7:${supportAppCompatVersion}",
             supportDesign:          "com.android.support:design:${supportDesignVersion}",
+            supportRecyclerViewV7:  "com.android.support:recyclerview-v7:${supportRecyclerViewV7Version}",
+            constaintLayout:        "com.android.support.constraint:constraint-layout:${constraintLayoutVersion}",
             daggerCompiler:         "com.google.dagger:dagger-compiler:${daggerCompilerVersion}",
             dagger:                 "com.google.dagger:dagger:${daggerVersion}",
             javaxAnnotation:        "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
-            rxAndroid:              "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}"
+            rxAndroid:              "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
+            rxJava:                 "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
+            glide:                  "com.github.bumptech.glide:glide:${glideVersion}",
+            glideCompiler:          "com.github.bumptech.glide:compiler:${glideVersion}",
+            butterKnife:            "com.jakewharton:butterknife:${butterKnifeVersion}"
     ]
 
     presentationTestDependencies = [
@@ -103,6 +115,9 @@ ext {
 
     domainDependencies = [
             rxJava:     "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
+            daggerCompiler:         "com.google.dagger:dagger-compiler:${daggerCompilerVersion}",
+            dagger:                 "com.google.dagger:dagger:${daggerVersion}",
+            javaxAnnotation:        "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
     ]
 
     domainTestDependencies = [

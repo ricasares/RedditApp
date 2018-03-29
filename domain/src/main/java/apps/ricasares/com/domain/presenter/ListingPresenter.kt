@@ -6,28 +6,17 @@ import apps.ricasares.com.domain.view.ListingView
 import apps.ricasares.com.mvp.Presenter
 import apps.ricasares.com.mvp.ViewState
 import io.reactivex.observers.DisposableSingleObserver
+import javax.inject.Inject
 
 /**
- * Created by ricardo on 3/22/18.
+ * Created by ricardo casarez on 3/22/18.
  */
-class ListingPresenter (
+class ListingPresenter @Inject constructor (
         private val getListingsUseCase: GetListingUseCase) : Presenter<ListingView, ListingPresenter.ListingViewState>() {
-
-    private val listingObserver = object : DisposableSingleObserver<Listing>() {
-        override fun onSuccess(listing: Listing) {
-            view?.hideLoading()
-            view?.showListings(listing)
-        }
-
-        override fun onError(e: Throwable?) {
-            view?.hideLoading()
-            showError(e.toString())
-        }
-    }
 
     fun loadListings(subreddit: String, listing: String, after: String, limit: Int) {
         view?.showLoading()
-        getListingsUseCase.execute(listingObserver, GetListingUseCase.Params(subreddit, listing, after, limit))
+        getListingsUseCase.execute(ListingSingleObserver(), GetListingUseCase.Params(subreddit, listing, after, limit))
     }
 
     fun showListings(listings: Listing) {
@@ -37,6 +26,17 @@ class ListingPresenter (
 
     fun showError(error: String) {
         view?.showError(error)
+    }
+
+    inner class ListingSingleObserver : DisposableSingleObserver<Listing>() {
+        override fun onError(e: Throwable) {
+            view?.showError(e.printStackTrace().toString())
+        }
+
+        override fun onSuccess(value: Listing) {
+            view?.hideLoading()
+            view?.showListings(value)
+        }
     }
 
     class ListingViewState : ViewState {

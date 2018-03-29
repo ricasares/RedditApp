@@ -28,6 +28,7 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+    // modules
     implementation project(':domain')
 
     def dependencies = rootProject.ext.dataDependencies
@@ -47,12 +48,13 @@ dependencies {
     implementation dependencies.roomRxJava2
     kapt dependencies.roomCompiler
 
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+
     def testDependencies = rootProject.ext.dataTestDependencies
     testImplementation testDependencies.junit
     testImplementation testDependencies.mockito
     androidTestImplementation testDependencies.runner
     androidTestImplementation testDependencies.espresso
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 }
 repositories {
     mavenCentral()

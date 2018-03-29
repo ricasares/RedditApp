@@ -26,25 +26,34 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+    // modules
+    implementation project(':data')
+    implementation project(':domain')
+    implementation project(':mvp')
+
     def dependencies = rootProject.ext.presentationDependencies
+    // android support
+    implementation dependencies.supportDesign
+    implementation dependencies.supportV4
     implementation dependencies.supportAppCompatv7
+    implementation dependencies.supportRecyclerViewV7
+    implementation dependencies.constaintLayout
+    implementation dependencies.constaintLayout
     // dagger
     implementation dependencies.dagger
     kapt dependencies.daggerCompiler
-
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-    implementation dependencies.supportDesign
-    implementation dependencies.supportV4
-
+    // glide
+    implementation dependencies.glide
+    kapt dependencies.glideCompiler
+    // rx java
+    implementation dependencies.rxJava
     implementation dependencies.rxAndroid
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation dependencies.kotlin
 
+    // test
     def testDependencies = rootProject.ext.presentationTestDependencies
     testImplementation testDependencies.junit
     androidTestImplementation testDependencies.runner
     androidTestImplementation testDependencies.espresso
-    implementation project(':data')
-    implementation project(':domain')
-    implementation project(':mvp')
 }

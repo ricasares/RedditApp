@@ -13,7 +13,7 @@ class ListingRepositoryImp @Inject constructor(
         private val dataStoreFactory: ListingDataStoreFactory,
         private val listingMapper: ListingMapper) : ListingRepository {
 
-    private val emptyListing = Listing("", "", "", "", listOf())
+    private val emptyListing = Listing()
 
     override fun getListings(subReddit: String, listing: String, after: String, limit: Int): Single<Listing> {
         return Single.concat(

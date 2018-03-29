@@ -3,50 +3,51 @@ package apps.ricasares.com.myreddit.fragments
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import apps.ricasares.com.domain.interactor.browse.GetListingUseCase
 import apps.ricasares.com.domain.model.Listing
+import apps.ricasares.com.domain.presenter.ListingItemPresenter
 import apps.ricasares.com.domain.presenter.ListingPresenter
-import apps.ricasares.com.domain.repository.ListingRepository
-import apps.ricasares.com.domain.schedulers.ObserveOn
-import apps.ricasares.com.domain.schedulers.SubscribeOn
 import apps.ricasares.com.domain.view.ListingView
 
 import apps.ricasares.com.myreddit.R
 import apps.ricasares.com.myreddit.RedditApplication
+import apps.ricasares.com.myreddit.listing.ListingAdapter
+import kotlinx.android.synthetic.main.fragment_listing.*
 import javax.inject.Inject
 
 /**
- * A simple [Fragment] subclass.
- * Activities that contain this fragment must implement the
- * [ListingFragment.OnFragmentInteractionListener] interface
- * to handle interaction events.
+ * Created by ricardo casarez.
  * Use the [ListingFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
 class ListingFragment : Fragment(), ListingView {
-    private val LOG_TAG: String = "ListingFragment"
-    @Inject lateinit var listingRepository: ListingRepository
-    @Inject lateinit var observeOn: ObserveOn
-    @Inject lateinit var subscribeOn: SubscribeOn
+    private val LOG_TAG = "ListingFragment"
 
-    private lateinit var getListingUseCase: GetListingUseCase
-    private lateinit var listingPresenter: ListingPresenter
+    @Inject lateinit var listingPresenter: ListingPresenter
+    private lateinit var listingAdapter: ListingAdapter
+    private val adapterPresenter: ListingItemPresenter = ListingItemPresenter()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    companion object {
+        val TAG = "ListingFragment"
 
-        getListingUseCase = GetListingUseCase(listingRepository, subscribeOn, observeOn)
-        listingPresenter = ListingPresenter(getListingUseCase)
-        listingPresenter.attachView(this)
-        listingPresenter.loadListings("all", "new", "", 10)
-
-        if (arguments != null) {
-
+        /**
+         *
+         */
+        fun newInstance(): ListingFragment {
+            val fragment = ListingFragment()
+            val args = Bundle()
+            fragment.arguments = args
+            return fragment
         }
+    }
+
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        (context?.applicationContext as RedditApplication).getApplicationComponent().inject(this)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -55,10 +56,16 @@ class ListingFragment : Fragment(), ListingView {
         return inflater.inflate(R.layout.fragment_listing, container, false)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-        (context?.applicationContext as RedditApplication).getApplicationComponent().inject(this)
+        listingPresenter.attachView(this)
+
+        listingAdapter = ListingAdapter(context!!, adapterPresenter)
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.adapter = listingAdapter
+
+        listingPresenter.loadListings("all", "hot", "", 10)
     }
 
     override fun onDetach() {
@@ -70,36 +77,21 @@ class ListingFragment : Fragment(), ListingView {
      */
     override fun showLoading() {
         Log.i(LOG_TAG, "showLoading")
+        progressBar.visibility = View.VISIBLE
     }
 
     override fun hideLoading() {
         Log.i(LOG_TAG, "hideLoading")
+        progressBar.visibility = View.INVISIBLE
     }
 
     override fun showListings(listings: Listing) {
         Log.i(LOG_TAG, listings.toString())
+        adapterPresenter.setListing(listings)
     }
 
     override fun showError(error: String) {
         Log.w(LOG_TAG, "showError $error")
-    }
-
-    companion object {
-        val TAG = "ListingFragment"
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment BlankFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        fun newInstance(): ListingFragment {
-            val fragment = ListingFragment()
-            val args = Bundle()
-            fragment.arguments = args
-            return fragment
-        }
+        progressBar.visibility = View.INVISIBLE
     }
 }

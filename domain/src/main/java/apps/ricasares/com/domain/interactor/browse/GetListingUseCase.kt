@@ -6,11 +6,12 @@ import apps.ricasares.com.domain.repository.ListingRepository
 import apps.ricasares.com.domain.schedulers.ObserveOn
 import apps.ricasares.com.domain.schedulers.SubscribeOn
 import io.reactivex.Single
+import javax.inject.Inject
 
 /**
  * Created by ricardo casarez on 3/22/18.
  */
-class GetListingUseCase constructor(
+class GetListingUseCase @Inject constructor(
         private val listingRepository: ListingRepository,
         subscribeOn: SubscribeOn,
         observeOn: ObserveOn) : SingleUseCase<Listing, GetListingUseCase.Params>(subscribeOn, observeOn) {

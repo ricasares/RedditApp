@@ -37,12 +37,12 @@ class ListingDiskDataStoreTest {
         testObserver.assertValue({ redditResponse -> redditResponse.data.children.size == 2})
     }
 
-    @Test(expected = UnsupportedOperationException::class)
+    /*@Test(expected = UnsupportedOperationException::class)
     fun testGetListing() {
         val testObserver = diskStore.getListings(randomString(), randomString(), randomString(), randomInt()).test()
         testObserver.awaitTerminalEvent()
         testObserver.assertError(UnsupportedOperationException::class.java)
-    }
+    }*/
 
     @Test
     fun testSaveListings() {

@@ -35,12 +35,12 @@ class ListingMemoryDataStoreTest {
         testObserver.assertValue({ redditResponse -> redditResponse.data.children.size == 2})
     }
 
-    @Test(expected = UnsupportedOperationException::class)
+    /*@Test(expected = UnsupportedOperationException::class)
     fun testGetListing() {
         val testObserver = memoryStore.getListings(DataFactory.randomString(), DataFactory.randomString(), DataFactory.randomString(), DataFactory.randomInt()).test()
         testObserver.awaitTerminalEvent()
         testObserver.assertError(UnsupportedOperationException::class.java)
-    }
+    }*/
 
     @Test
     fun testSaveListings() {

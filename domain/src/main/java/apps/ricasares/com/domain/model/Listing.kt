@@ -9,4 +9,12 @@ data class Listing(
     val after: String,
     val modhash: String,
     val entries: List<Entry>
-)
+) {
+    constructor() : this(
+            "",
+            null,
+            "",
+            "",
+            listOf<Entry>()
+    )
+}

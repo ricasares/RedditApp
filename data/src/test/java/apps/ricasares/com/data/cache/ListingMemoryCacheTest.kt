@@ -14,7 +14,7 @@ class ListingMemoryCacheTest {
     fun testClearListings() {
         var testObserver = cache.clearListings().test()
         testObserver.assertComplete()
-        assertNull(cache.redditResponse)
+        assertTrue(cache.redditResponse.data.children.isEmpty())
     }
 
     @Test

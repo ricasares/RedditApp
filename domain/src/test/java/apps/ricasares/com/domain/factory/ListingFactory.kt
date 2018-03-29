@@ -1,5 +1,6 @@
 package apps.ricasares.com.domain.factory
 
+import apps.ricasares.com.domain.factory.DataFactory.Companion.randomBoolean
 import apps.ricasares.com.domain.factory.DataFactory.Companion.randomInt
 import apps.ricasares.com.domain.factory.DataFactory.Companion.randomLong
 import apps.ricasares.com.domain.factory.DataFactory.Companion.randomString
@@ -22,7 +23,8 @@ class ListingFactory {
                     randomString(),
                     randomInt(),
                     randomInt(),
-                    randomLong()
+                    randomLong(),
+                    randomBoolean()
             )
         }
 

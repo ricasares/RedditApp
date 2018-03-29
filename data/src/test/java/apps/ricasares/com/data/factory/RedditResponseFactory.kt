@@ -81,6 +81,7 @@ class RedditResponseFactory {
                     randomString(),
                     randomString(),
                     randomString(),
+                    randomString(),
                     randomBoolean(),
                     randomString(),
                     randomBoolean(),
@@ -104,7 +105,8 @@ class RedditResponseFactory {
                     randomString(),
                     //randomLong(),
                     randomString(),
-                    randomBoolean()
+                    randomBoolean(),
+                    Preview()
             )
         }
     }
