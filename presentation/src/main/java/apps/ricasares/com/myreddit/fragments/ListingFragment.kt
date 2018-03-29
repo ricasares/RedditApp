@@ -61,7 +61,7 @@ class ListingFragment : Fragment(), ListingView {
 
         listingPresenter.attachView(this)
 
-        listingAdapter = ListingAdapter(context!!, adapterPresenter)
+        listingAdapter = ListingAdapter(adapterPresenter)
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = listingAdapter
 
@@ -88,6 +88,7 @@ class ListingFragment : Fragment(), ListingView {
     override fun showListings(listings: Listing) {
         Log.i(LOG_TAG, listings.toString())
         adapterPresenter.setListing(listings)
+        listingAdapter.notifyDataSetChanged()
     }
 
     override fun showError(error: String) {

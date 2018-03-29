@@ -49,6 +49,9 @@ dependencies {
     implementation dependencies.rxJava
     implementation dependencies.rxAndroid
 
+    implementation dependencies.butterKnife
+    kapt dependencies.butterKnifeCompiler
+
     implementation dependencies.kotlin
 
     // test
