@@ -41,7 +41,8 @@ data class ChildrenData(
         //val edited: Long, // could be boolean and long
         val distinguished: String?,
         val stickied: Boolean,
-        val preview: Preview?
+        val preview: Preview?,
+        val post_hint: String
 ) {
     constructor() : this(
             "",
@@ -80,6 +81,7 @@ data class ChildrenData(
             "",
             null,
             false,
-            null
+            null,
+            ""
     )
 }

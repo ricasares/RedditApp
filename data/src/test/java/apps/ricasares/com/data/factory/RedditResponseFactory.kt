@@ -5,6 +5,7 @@ import apps.ricasares.com.data.factory.DataFactory.Companion.randomBoolean
 import apps.ricasares.com.data.factory.DataFactory.Companion.randomInt
 import apps.ricasares.com.data.factory.DataFactory.Companion.randomLong
 import apps.ricasares.com.data.factory.DataFactory.Companion.randomString
+import apps.ricasares.com.domain.model.PostHint
 
 /**
  * Created by rush on 1/23/18.
@@ -106,7 +107,8 @@ class RedditResponseFactory {
                     //randomLong(),
                     randomString(),
                     randomBoolean(),
-                    Preview()
+                    Preview(),
+                    PostHint.LINK.toString()
             )
         }
     }

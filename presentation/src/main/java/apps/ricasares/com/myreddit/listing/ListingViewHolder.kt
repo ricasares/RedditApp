@@ -18,12 +18,15 @@ class ListingViewHolder : RecyclerView.ViewHolder, ListingItemView {
     @BindView(R.id.title) lateinit var title: TextView
     @BindView(R.id.subReddit) lateinit var subReddit: TextView
     @BindView(R.id.previewImage) lateinit var preview: ImageView
+    @BindView(R.id.type) lateinit var mediaType: TextView
     @BindView(R.id.points) lateinit var points: TextView
     @BindView(R.id.comments) lateinit var comments: TextView
     @BindView(R.id.date) lateinit var date: TextView
+    private var view: View
 
     constructor(view: View) : super(view) {
         ButterKnife.bind(this, view)
+        this.view = view
     }
 
     override fun setTitle(title: String) {
@@ -31,14 +34,13 @@ class ListingViewHolder : RecyclerView.ViewHolder, ListingItemView {
     }
 
     override fun setSubReddit(subReddit: String) {
-        this.subReddit.text = subReddit
+        this.subReddit.text =
+                view.context.getString(R.string.sub_reddit_subtitle, subReddit)
     }
 
     override fun setPreviewImage(url: String) {
-        Glide.with(itemView.context)
-                .asBitmap()
-                .load(url)
-                .into(preview)
+        loadImageIntoView(url, preview)
+        mediaType.text = "Image"
     }
 
     override fun setPoints(points: String) {
@@ -51,5 +53,27 @@ class ListingViewHolder : RecyclerView.ViewHolder, ListingItemView {
 
     override fun setDate(date: String) {
         this.date.text = date
+    }
+
+    override fun setPreviewGif(url: String) {
+        loadImageIntoView(url, preview)
+        mediaType.text = "Gif"
+    }
+
+    override fun setPreviewVideo(url: String) {
+        loadImageIntoView(url, preview)
+        mediaType.text = "Video"
+    }
+
+    override fun setPreviewLink(url: String) {
+        loadImageIntoView(url, preview)
+        mediaType.text = "Link"
+    }
+
+    private fun loadImageIntoView(url: String, view: ImageView) {
+        Glide.with(itemView.context)
+                .asBitmap()
+                .load(url)
+                .into(view)
     }
 }

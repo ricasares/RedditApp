@@ -29,7 +29,7 @@ class ListingMapperTest {
 
             assertEquals(childrenResponse.data.title, link.title)
             assertEquals(childrenResponse.data.subreddit, link.subReddit)
-            assertEquals(childrenResponse.data.url, link.thumb)
+            assertEquals(childrenResponse.data.thumbnail, link.thumb)
             assertEquals(childrenResponse.data.score, link.points)
             assertEquals(childrenResponse.data.num_comments, link.commentCount)
             assertEquals(childrenResponse.data.created_utc, link.date)

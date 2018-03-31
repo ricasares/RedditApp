@@ -10,5 +10,5 @@ interface ListingView : View {
     fun showLoading()
     fun hideLoading()
     fun showListings(listings: Listing)
-    fun showError(error: String)
+    fun showError(error: Throwable)
 }

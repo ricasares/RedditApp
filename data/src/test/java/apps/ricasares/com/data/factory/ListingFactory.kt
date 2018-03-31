@@ -6,6 +6,7 @@ import apps.ricasares.com.data.factory.DataFactory.Companion.randomLong
 import apps.ricasares.com.data.factory.DataFactory.Companion.randomString
 import apps.ricasares.com.domain.model.Entry
 import apps.ricasares.com.domain.model.Listing
+import apps.ricasares.com.domain.model.PostHint
 
 /**
  * Created by rush on 1/23/18.
@@ -21,10 +22,12 @@ class ListingFactory {
                     randomString(),
                     randomString(),
                     randomString(),
+                    randomString(),
                     randomInt(),
                     randomInt(),
                     randomLong(),
-                    randomBoolean()
+                    randomBoolean(),
+                    PostHint.LINK
             )
         }
 

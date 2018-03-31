@@ -91,8 +91,8 @@ class ListingFragment : Fragment(), ListingView {
         listingAdapter.notifyDataSetChanged()
     }
 
-    override fun showError(error: String) {
-        Log.w(LOG_TAG, "showError $error")
+    override fun showError(error: Throwable) {
+        Log.e(LOG_TAG, "showError ${error.message}", error)
         progressBar.visibility = View.INVISIBLE
     }
 }

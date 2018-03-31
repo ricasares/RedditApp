@@ -4,4 +4,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- listing item view -->
+    <string name="sub_reddit_subtitle">r/%1$s</string>
 </resources>

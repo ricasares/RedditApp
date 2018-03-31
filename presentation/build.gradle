@@ -38,7 +38,7 @@ dependencies {
     implementation dependencies.supportAppCompatv7
     implementation dependencies.supportRecyclerViewV7
     implementation dependencies.constaintLayout
-    implementation dependencies.constaintLayout
+    implementation dependencies.cardView
     // dagger
     implementation dependencies.dagger
     kapt dependencies.daggerCompiler
