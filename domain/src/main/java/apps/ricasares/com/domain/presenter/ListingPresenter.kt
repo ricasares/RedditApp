@@ -24,13 +24,13 @@ class ListingPresenter @Inject constructor (
         view?.showListings(listings)
     }
 
-    fun showError(error: Throwable) {
+    fun showError(error: String) {
         view?.showError(error)
     }
 
     inner class ListingSingleObserver : DisposableSingleObserver<Listing>() {
         override fun onError(e: Throwable) {
-            view?.showError(e)
+            view?.showError(e.message.toString())
         }
 
         override fun onSuccess(value: Listing) {

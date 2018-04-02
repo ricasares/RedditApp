@@ -1,16 +1,11 @@
 package apps.ricasares.com.domain.presenter
 
-import apps.ricasares.com.domain.model.Entry
 import apps.ricasares.com.domain.model.Listing
 import apps.ricasares.com.domain.model.PostHint
-import apps.ricasares.com.domain.utils.RelativedateFormat
+import apps.ricasares.com.domain.utils.RelativeDateFormat
 import apps.ricasares.com.domain.view.ListingItemView
 import apps.ricasares.com.mvp.StatelessPresenter
-import java.lang.StringBuilder
-import java.sql.Timestamp
-import java.text.SimpleDateFormat
 import java.util.*
-import java.util.concurrent.TimeUnit
 
 /**
  * Created by ricardo casarez on 3/29/18.
@@ -46,6 +41,6 @@ class ListingItemPresenter : StatelessPresenter<ListingItemView>() {
     }
 
     private fun formatDate(timestamp: Long) : String {
-        return RelativedateFormat.toRelative(Math.abs(Date().time - Date(timestamp).time))
+        return RelativeDateFormat.toRelateve(timestamp, System.currentTimeMillis())
     }
 }

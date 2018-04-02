@@ -4,11 +4,12 @@ import apps.ricasares.com.domain.factory.DataFactory
 import apps.ricasares.com.domain.interactor.browse.GetListingUseCase
 import apps.ricasares.com.domain.model.Listing
 import apps.ricasares.com.domain.view.ListingView
+import io.reactivex.observers.DisposableSingleObserver
 import junit.framework.Assert.assertNotNull
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mockito.*
-import javax.xml.crypto.Data
+import com.example.android.architecture.blueprints.todoapp.any
 
 /**
  * Created by rush on 3/26/18.
@@ -34,12 +35,14 @@ class ListingPresneterTest {
                 DataFactory.randomString(),
                 DataFactory.randomInt())
         verify(listingPresenter.view)?.showLoading()
+        verify(getListingUseCase).execute(any<DisposableSingleObserver<Listing>>(), any(GetListingUseCase.Params::class.java))
     }
 
     @Test
     fun testShowListings() {
         val listings: Listing = mock(Listing::class.java)
         listingPresenter.showListings(listings)
+        verify(listingPresenter.view)?.hideLoading()
         verify(listingPresenter.view)?.showListings(listings)
     }
 
