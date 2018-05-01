@@ -52,6 +52,8 @@ dependencies {
     implementation dependencies.butterKnife
     kapt dependencies.butterKnifeCompiler
 
+    implementation dependencies.archCore
+
     implementation dependencies.kotlin
 
     // test

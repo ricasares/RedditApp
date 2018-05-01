@@ -1,15 +1,18 @@
 package apps.ricasares.com.data.cache
 
+import apps.ricasares.com.data.cache.db.RedditDb
+import apps.ricasares.com.data.entity.Children
 import apps.ricasares.com.data.entity.RedditResponse
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single
+import javax.inject.Inject
 
 /**
  * ListingCache implementation for data base persistence.
  * Created by ricardo Casarez on 3/21/18.
  */
-class ListingDbCache : ListingCache {
+class ListingDbCache @Inject constructor(private val db: RedditDb) : ListingCache {
     internal var redditResponse: RedditResponse = RedditResponse()
 
     override fun clearListings(): Completable {
@@ -20,6 +23,7 @@ class ListingDbCache : ListingCache {
 
     override fun saveListings(response: RedditResponse): Completable {
         return Completable.fromAction {
+
             redditResponse = response
         }
     }

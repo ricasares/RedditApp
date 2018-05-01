@@ -24,15 +24,15 @@ class ListingItemPresenter : StatelessPresenter<ListingItemView>() {
         view.setTitle(entry.title)
         view.setSubReddit(entry.subReddit)
         if (entry.hint == PostHint.IMAGE) {
-            view.setPreviewImage(entry.thumb)
+            view.setPreviewImage(entry.preview.url, entry.preview.width, entry.preview.height)
         } else if (entry.hint == PostHint.RICH_VIDEO) {
             if (entry.isGif) {
-                view.setPreviewGif(entry.thumb)
+                view.setPreviewGif(entry.preview.url)
             } else {
-                view.setPreviewVideo(entry.thumb)
+                view.setPreviewVideo(entry.preview.url)
             }
         } else if (entry.hint == PostHint.LINK) {
-            view.setPreviewLink(entry.thumb)
+            view.setPreviewLink(entry.preview.url)
         }
 
         view.setPoints(entry.points.toString())

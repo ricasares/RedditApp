@@ -1,11 +1,9 @@
 package apps.ricasares.com.data.cache.db
 
 import android.arch.persistence.room.Dao
-import android.arch.persistence.room.Delete
 import android.arch.persistence.room.Insert
 import android.arch.persistence.room.Query
-import apps.ricasares.com.data.entity.RedditResponse
-import io.reactivex.Completable
+import apps.ricasares.com.data.entity.ChildrenData
 import io.reactivex.Single
 
 /**
@@ -13,12 +11,15 @@ import io.reactivex.Single
  */
 @Dao
 interface RedditResponseDao {
-    @Query("SELECT * FROM redditResponse")
-    fun getAll() : Single<RedditResponse>
+    @Query("SELECT * FROM posts WHERE subreddit = :subreddit ORDER BY indexInResponse ASC")
+    fun getBySubbreddit(subreddit : String) : Single<ChildrenData>
 
     @Insert
-    fun insert(response: RedditResponse) : Completable
+    fun insert(posts: ChildrenData) : Long
 
-    @Delete
-    fun deleteAll()
+    @Query("SELECT MAX(indexInResponse) + 1 FROM posts WHERE subreddit = :subreddit")
+    fun getNextIndexInSubreddit(subreddit: String) : Int
+
+    @Query("DELETE FROM posts WHERE subreddit = :subreddit")
+    fun deleteBySubreddit(subreddit: String)
 }

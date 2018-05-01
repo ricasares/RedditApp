@@ -5,6 +5,7 @@ import apps.ricasares.com.data.factory.DataFactory.Companion.randomInt
 import apps.ricasares.com.data.factory.DataFactory.Companion.randomLong
 import apps.ricasares.com.data.factory.DataFactory.Companion.randomString
 import apps.ricasares.com.domain.model.Entry
+import apps.ricasares.com.domain.model.ImagePreview
 import apps.ricasares.com.domain.model.Listing
 import apps.ricasares.com.domain.model.PostHint
 
@@ -22,12 +23,12 @@ class ListingFactory {
                     randomString(),
                     randomString(),
                     randomString(),
-                    randomString(),
                     randomInt(),
                     randomInt(),
                     randomLong(),
                     randomBoolean(),
-                    PostHint.LINK
+                    PostHint.LINK,
+                    ImagePreview(randomString(), randomInt(), randomInt())
             )
         }
 

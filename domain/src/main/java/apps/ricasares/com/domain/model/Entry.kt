@@ -6,11 +6,11 @@ package apps.ricasares.com.domain.model
 data class Entry(
         val title: String,
         val subReddit: String,
-        val thumb: String,
         val url: String,
         val points: Int,
         val commentCount: Int,
         val date: Long,
         val isGif: Boolean,
-        val hint: PostHint
+        val hint: PostHint,
+        val preview: ImagePreview
 )

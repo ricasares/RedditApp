@@ -46,6 +46,11 @@
                     android:layout_gravity="bottom"
                     android:textColor="@color/colorAccent"
                     />
+                <ProgressBar
+                    android:id="@+id/previewProgress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"/>
             </FrameLayout>
 
             <!-- footer -->

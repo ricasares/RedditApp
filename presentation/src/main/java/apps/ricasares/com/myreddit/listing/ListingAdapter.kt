@@ -12,7 +12,7 @@ import apps.ricasares.com.myreddit.R
 class ListingAdapter(private val mPresenter: ListingItemPresenter) :
         RecyclerView.Adapter<ListingViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ListingViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListingViewHolder {
 
         val view = ListingViewHolder(LayoutInflater.from(parent?.context)
                 .inflate(R.layout.item_lisitng, parent, false))
@@ -22,7 +22,7 @@ class ListingAdapter(private val mPresenter: ListingItemPresenter) :
 
     override fun getItemCount(): Int = mPresenter.getItemCount()
 
-    override fun onBindViewHolder(holder: ListingViewHolder?, position: Int) {
+    override fun onBindViewHolder(holder: ListingViewHolder, position: Int) {
         mPresenter.onBindView(holder!!, position)
     }
 }

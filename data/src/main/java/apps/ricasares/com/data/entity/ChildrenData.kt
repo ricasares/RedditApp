@@ -1,48 +1,59 @@
 package apps.ricasares.com.data.entity
 
+import android.arch.persistence.room.*
+import com.google.gson.annotations.SerializedName
+
 /**
  * Created by ricardo casarez on 11/17/17.
  */
+@Entity(tableName = "posts",
+        indices = [(Index(value = ["subreddit"], unique = false))])
 data class ChildrenData(
-        val id: String,
-        val name: String,
-        val kind: String,
-        val ups: Int,
-        val downs: Int,
-        val likes: Boolean?,
-        val created: Long,
-        val created_utc: Long,
-        val approved_by: String?,
-        val author: String,
-        val author_flair_css_class: String,
-        val author_flair_text: String,
-        val banned_by: String?,
-        val clicked: Boolean,
-        val domain: String,
-        val hidden: Boolean,
-        val is_self: Boolean,
-        val link_flair_css_class: String?,
-        val link_flair_text: String?,
-        val locked: Boolean,
-        val media: Media?,
-        val media_embed: Media,
-        val num_comments: Int,
-        val over_18: Boolean,
-        val permalink: String,
-        val saved: Boolean,
-        val score: Int,
-        val selftext: String,
-        val selftext_html: String?,
-        val subreddit: String,
-        val subreddit_id: String,
-        val thumbnail: String,
-        val title: String,
-        val url: String,
+        var id: String,
+        @PrimaryKey
+        var name: String,
+        var kind: String,
+        var ups: Int,
+        var downs: Int,
+        var likes: Boolean?,
+        var created: Long,
+        var created_utc: Long,
+        var approved_by: String?,
+        var author: String,
+        var author_flair_css_class: String,
+        var author_flair_text: String,
+        var banned_by: String?,
+        var clicked: Boolean,
+        var domain: String,
+        var hidden: Boolean,
+        @SerializedName("is_self")
+        var self: Boolean,
+        var link_flair_css_class: String?,
+        var link_flair_text: String?,
+        var locked: Boolean,
+        @Ignore
+        var media: Media?,
+        @Ignore
+        var media_embed: Media,
+        var num_comments: Int,
+        var over_18: Boolean,
+        var permalink: String,
+        var saved: Boolean,
+        var score: Int,
+        var selftext: String,
+        var selftext_html: String?,
+        @ColumnInfo(collate = ColumnInfo.NOCASE)
+        var subreddit: String,
+        var subreddit_id: String,
+        var thumbnail: String,
+        var title: String,
+        var url: String,
         //val edited: Long, // could be boolean and long
-        val distinguished: String?,
-        val stickied: Boolean,
-        val preview: Preview?,
-        val post_hint: String
+        var distinguished: String?,
+        var stickied: Boolean,
+        @Ignore
+        var preview: Preview?,
+        var post_hint: String
 ) {
     constructor() : this(
             "",
@@ -84,4 +95,5 @@ data class ChildrenData(
             null,
             ""
     )
+    var indexInResponse: Int = -1
 }

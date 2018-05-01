@@ -25,14 +25,14 @@ class ListingMapperTest {
         assertThat(listing.entries.size, `is`(redditResponse.data.children.size))
         for (i in 0 until redditResponse.data.children.size) {
             var childrenResponse = redditResponse.data.children.get(i)
-            var link = listing.entries.get(i)
+            var link = listing.entries[i]
 
             assertEquals(childrenResponse.data.title, link.title)
             assertEquals(childrenResponse.data.subreddit, link.subReddit)
-            assertEquals(childrenResponse.data.thumbnail, link.thumb)
+            assertEquals(childrenResponse.data.thumbnail, link.preview.url)
             assertEquals(childrenResponse.data.score, link.points)
             assertEquals(childrenResponse.data.num_comments, link.commentCount)
-            assertEquals(childrenResponse.data.created_utc, link.date)
+            assertEquals(childrenResponse.data.created, link.date)
         }
     }
 }

@@ -1,8 +1,11 @@
 package apps.ricasares.com.data.di
 
+import android.arch.persistence.room.Room
+import android.content.Context
 import apps.ricasares.com.data.cache.ListingCache
 import apps.ricasares.com.data.cache.ListingDbCache
 import apps.ricasares.com.data.cache.ListingMemoryCache
+import apps.ricasares.com.data.cache.db.RedditDb
 import apps.ricasares.com.data.entity.mapper.ListingMapper
 import apps.ricasares.com.data.repository.ListingDataStoreFactory
 import apps.ricasares.com.data.repository.ListingDiskDataStore
@@ -42,7 +45,12 @@ class DataModule {
     }
 
     @Provides @Singleton @Named("disk_cache")
-    fun providesDiskCache() : ListingCache = ListingDbCache()
+    fun providesDiskCache(context: Context) : ListingCache {
+        val db = Room.inMemoryDatabaseBuilder(context, RedditDb::class.java)
+                .fallbackToDestructiveMigration()
+                .build()
+        return ListingDbCache(db)
+    }
 
     @Provides @Singleton @Named("memory_cache")
     fun providesMemoryCache() : ListingCache = ListingMemoryCache()

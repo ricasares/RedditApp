@@ -8,7 +8,7 @@ import apps.ricasares.com.mvp.View
 interface ListingItemView : View {
     fun setTitle(title: String)
     fun setSubReddit(subReddit: String)
-    fun setPreviewImage(url: String)
+    fun setPreviewImage(url: String, width: Int, height: Int)
     fun setPreviewGif(url: String)
     fun setPreviewVideo(url: String)
     fun setPreviewLink(url: String)

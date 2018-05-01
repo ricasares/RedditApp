@@ -2,6 +2,7 @@ package apps.ricasares.com.myreddit.di
 
 import android.app.Application
 import android.content.Context
+import apps.ricasares.com.data.cache.db.RedditDb
 import apps.ricasares.com.data.di.DataModule
 import apps.ricasares.com.domain.schedulers.ObserveOn
 import apps.ricasares.com.domain.schedulers.SubscribeOn
@@ -38,5 +39,10 @@ class ApplicationModule (private val mApplication: Application){
                 return Schedulers.newThread()
             }
         }
+    }
+
+    @Provides @Singleton
+    fun providesContext() : Context{
+        return mApplication
     }
 }
