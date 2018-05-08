@@ -1,7 +1,6 @@
 package apps.ricasares.com.data.cache
 
 import apps.ricasares.com.data.cache.db.RedditDb
-import apps.ricasares.com.data.entity.Children
 import apps.ricasares.com.data.entity.RedditResponse
 import io.reactivex.Completable
 import io.reactivex.Flowable
@@ -23,7 +22,14 @@ class ListingDbCache @Inject constructor(private val db: RedditDb) : ListingCach
 
     override fun saveListings(response: RedditResponse): Completable {
         return Completable.fromAction {
-
+            response.data.children.let { posts ->
+                db.runInTransaction {
+                    val items = posts.mapIndexed { index, child ->
+                        child.data
+                    }
+                    db.posts().insert(items)
+                }
+            }
             redditResponse = response
         }
     }

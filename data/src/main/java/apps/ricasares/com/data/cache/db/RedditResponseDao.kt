@@ -15,7 +15,7 @@ interface RedditResponseDao {
     fun getBySubbreddit(subreddit : String) : Single<ChildrenData>
 
     @Insert
-    fun insert(posts: ChildrenData) : Long
+    fun insert(posts: List<ChildrenData>)
 
     @Query("SELECT MAX(indexInResponse) + 1 FROM posts WHERE subreddit = :subreddit")
     fun getNextIndexInSubreddit(subreddit: String) : Int

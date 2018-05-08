@@ -25,7 +25,7 @@ abstract class SingleUseCase<T, in Params> (
                 .subscribeWith(observer))
     }
 
-    private fun dispose() {
+    fun dispose() {
         if (!disposables.isDisposed) {
             disposables.dispose()
         }

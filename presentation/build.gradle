@@ -39,6 +39,7 @@ dependencies {
     implementation dependencies.supportRecyclerViewV7
     implementation dependencies.constaintLayout
     implementation dependencies.cardView
+
     // dagger
     implementation dependencies.dagger
     kapt dependencies.daggerCompiler
@@ -52,7 +53,9 @@ dependencies {
     implementation dependencies.butterKnife
     kapt dependencies.butterKnifeCompiler
 
-    implementation dependencies.archCore
+    implementation dependencies.archRuntime
+    implementation dependencies.archExtensions
+    kapt dependencies.archCompiler
 
     implementation dependencies.kotlin
 

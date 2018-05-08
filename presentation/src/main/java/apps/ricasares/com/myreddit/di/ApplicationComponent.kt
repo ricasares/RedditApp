@@ -10,7 +10,7 @@ import javax.inject.Singleton
  * Created by ricardo casarez on 3/26/18.
  */
 @Singleton
-@Component(modules = [ ApplicationModule::class, UseCasesModule::class ])
+@Component(modules = [ ApplicationModule::class, UseCasesModule::class, ViewModelModule::class ])
 interface ApplicationComponent {
     fun inject(app: Application)
     fun inject(mainActivity: MainActivity)

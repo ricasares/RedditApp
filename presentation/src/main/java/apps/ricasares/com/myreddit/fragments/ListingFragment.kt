@@ -1,5 +1,7 @@
 package apps.ricasares.com.myreddit.fragments
 
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -10,12 +12,15 @@ import android.view.View
 import android.view.ViewGroup
 import apps.ricasares.com.domain.model.Listing
 import apps.ricasares.com.domain.presenter.ListingItemPresenter
-import apps.ricasares.com.domain.presenter.ListingPresenter
 import apps.ricasares.com.domain.view.ListingView
 
 import apps.ricasares.com.myreddit.R
 import apps.ricasares.com.myreddit.RedditApplication
+import apps.ricasares.com.myreddit.data.Resource
+import apps.ricasares.com.myreddit.data.Status
 import apps.ricasares.com.myreddit.listing.ListingAdapter
+import apps.ricasares.com.myreddit.listing.ListingsViewModel
+import apps.ricasares.com.myreddit.listing.ListingsViewModelFactory
 import kotlinx.android.synthetic.main.fragment_listing.*
 import javax.inject.Inject
 
@@ -27,7 +32,8 @@ import javax.inject.Inject
 class ListingFragment : Fragment(), ListingView {
     private val LOG_TAG = "ListingFragment"
 
-    @Inject lateinit var listingPresenter: ListingPresenter
+    @Inject lateinit var listingViewModelFactory: ListingsViewModelFactory
+    private lateinit var listingViewModel: ListingsViewModel
     private lateinit var listingAdapter: ListingAdapter
     private val adapterPresenter: ListingItemPresenter = ListingItemPresenter()
 
@@ -48,6 +54,9 @@ class ListingFragment : Fragment(), ListingView {
     override fun onAttach(context: Context?) {
         super.onAttach(context)
         (context?.applicationContext as RedditApplication).getApplicationComponent().inject(this)
+
+        listingViewModel = ViewModelProviders.of(this, listingViewModelFactory)
+                .get(ListingsViewModel::class.java)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -59,13 +68,24 @@ class ListingFragment : Fragment(), ListingView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        listingPresenter.attachView(this)
-
         listingAdapter = ListingAdapter(adapterPresenter)
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = listingAdapter
 
-        listingPresenter.loadListings("all", "hot", "", 10)
+        listingViewModel.loadListings("all", "hot", null)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        listingViewModel.getListings().observe(this, Observer<Resource<Listing>> {
+            it?.let {
+                when (it.status) {
+                    Status.LOADING -> showLoading()
+                    Status.SUCCESS -> showListings(it.data!!)
+                    Status.ERROR -> showError(it.message!!)
+                }
+            }
+        })
     }
 
     override fun onDetach() {

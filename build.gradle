@@ -85,7 +85,9 @@ ext {
             glideCompiler:          "com.github.bumptech.glide:compiler:${glideVersion}",
             butterKnife:            "com.jakewharton:butterknife:${butterKnifeVersion}",
             butterKnifeCompiler:    "com.jakewharton:butterknife-compiler:${butterKnifeVersion}",
-            archCore:               "android.arch.core:runtime:${archCoreVersion}"
+            archRuntime:            "android.arch.lifecycle:runtime:${archCoreVersion}",
+            archExtensions:          "android.arch.lifecycle:extensions:${archCoreVersion}",
+            archCompiler:           "android.arch.lifecycle:compiler:${archCoreVersion}"
     ]
 
     presentationTestDependencies = [
@@ -93,8 +95,7 @@ ext {
             hamcrest:   "org.hamcrest:hamcrest-library:${hamcrestVersion}",
             mockito:    "org.mockito:mockito-core:${mockitoVersion}",
             runner:     "com.android.support.test:runner:${testRunnerVersion}",
-            espresso:   "com.android.support.test.espresso:espresso-core:${espressoVersion}",
-            archCore:   "android.arch.core:core-testing:${archCoreVersion}"
+            espresso:   "com.android.support.test.espresso:espresso-core:${espressoVersion}"
     ]
 
     dataDependencies = [
