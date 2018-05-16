@@ -1,17 +1,16 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
-
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
+    compileSdkVersion build_versions.target_sdk
+    buildToolsVersion build_versions.build_tools
+
     defaultConfig {
         applicationId "apps.ricasares.com.myreddit"
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
+        minSdkVersion build_versions.min_sdk
+        targetSdkVersion build_versions.target_sdk
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -31,37 +30,42 @@ dependencies {
     implementation project(':domain')
     implementation project(':mvp')
 
-    def dependencies = rootProject.ext.presentationDependencies
     // android support
-    implementation dependencies.supportDesign
-    implementation dependencies.supportV4
-    implementation dependencies.supportAppCompatv7
-    implementation dependencies.supportRecyclerViewV7
-    implementation dependencies.constaintLayout
-    implementation dependencies.cardView
+    implementation deps.support.design
+    implementation deps.support.app_compat
+    implementation deps.support.recyclerview
+    implementation deps.support.cardview
+
+    implementation deps.constraint_layout
+    implementation deps.paging
 
     // dagger
-    implementation dependencies.dagger
-    kapt dependencies.daggerCompiler
+    implementation deps.dagger.runtime
+    kapt deps.dagger.compiler
     // glide
-    implementation dependencies.glide
-    kapt dependencies.glideCompiler
+    implementation deps.glide.runtime
+    kapt deps.glide.compiler
     // rx java
-    implementation dependencies.rxJava
-    implementation dependencies.rxAndroid
+    implementation deps.rx_java2
+    implementation deps.rx_android
 
-    implementation dependencies.butterKnife
-    kapt dependencies.butterKnifeCompiler
+    // butterknife
+    implementation deps.butter_knife.runtime
+    kapt deps.butter_knife.compiler
 
-    implementation dependencies.archRuntime
-    implementation dependencies.archExtensions
-    kapt dependencies.archCompiler
+    // architecture components
+    implementation deps.lifecycle.runtime
+    implementation deps.lifecycle.extensions
 
-    implementation dependencies.kotlin
+    // kotlin
+    implementation deps.kotlin.stdlib
 
     // test
-    def testDependencies = rootProject.ext.presentationTestDependencies
-    testImplementation testDependencies.junit
-    androidTestImplementation testDependencies.runner
-    androidTestImplementation testDependencies.espresso
+    testImplementation deps.junit
+    testImplementation deps.arch_core.testing
+    testImplementation deps.mockito.core
+
+    androidTestImplementation deps.junit
+    androidTestImplementation deps.test_support_library.runner
+    androidTestImplementation deps.test_support_library.rules
 }

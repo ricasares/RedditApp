@@ -55,7 +55,7 @@ class ListingCloudDataStoreTest {
     }
 
     private fun mockRedditApiGetListing(single: Single<RedditResponse>) {
-        `when`(redditApi.getListing(
+        `when`(redditApi.getListings(
                 anyString(),
                 anyString(),
                 anyString(),

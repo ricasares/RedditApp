@@ -14,7 +14,7 @@ class RdditApiTest {
 
     @Test
     fun testListing() {
-        val testObserver: TestObserver<RedditResponse> = redditApi.getListing("all","new", "", "10").test()
+        val testObserver: TestObserver<RedditResponse> = redditApi.getListings("all","new", "", "10").test()
         testObserver.awaitTerminalEvent()
         testObserver.assertComplete()
         testObserver.assertNoErrors()

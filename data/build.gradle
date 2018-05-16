@@ -3,18 +3,16 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
-
-
+    compileSdkVersion build_versions.target_sdk
+    buildToolsVersion build_versions.build_tools
 
     defaultConfig {
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
+        minSdkVersion build_versions.min_sdk
+        targetSdkVersion build_versions.target_sdk
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
     }
 
     buildTypes {
@@ -23,7 +21,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
 }
 
 dependencies {
@@ -31,31 +28,31 @@ dependencies {
     // modules
     implementation project(':domain')
 
-    def dependencies = rootProject.ext.dataDependencies
-    implementation dependencies.supportAppCompatv7
-
     // dagger
-    implementation dependencies.dagger
-    kapt dependencies.daggerCompiler
+    implementation deps.dagger.runtime
+    kapt deps.dagger.compiler
 
     // retrofit
-    implementation dependencies.retrofit
-    api dependencies.retrofitRxAdapter
-    api dependencies.retrofitGsonConverter
+    implementation deps.retrofit.runtime
+    api deps.retrofit.rx_java
+    api deps.retrofit.gson
 
     // room
-    implementation dependencies.room
-    implementation dependencies.roomRxJava2
-    kapt dependencies.roomCompiler
+    implementation deps.room.runtime
+    implementation deps.room.rxjava2
+    kapt deps.room.compiler
 
-    implementation dependencies.kotlin
+    implementation deps.kotlin.stdlib
 
-    def testDependencies = rootProject.ext.dataTestDependencies
-    testImplementation testDependencies.junit
-    testImplementation testDependencies.mockito
-    androidTestImplementation testDependencies.runner
-    androidTestImplementation testDependencies.espresso
+    testImplementation deps.junit
+    testImplementation deps.mockito.core
+    testImplementation deps.arch_core.testing
+
+    androidTestImplementation deps.junit
+    androidTestImplementation deps.test_support_library.runner
+    androidTestImplementation deps.test_support_library.rules
 }
+
 repositories {
     mavenCentral()
 }

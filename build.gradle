@@ -1,6 +1,8 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
+    apply from: 'versions.gradle'
+    addRepos(repositories)
     ext.kotlin_version = '1.2.20'
 
     repositories {
@@ -8,16 +10,14 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.0'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
-
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
+        classpath deps.android_gradle_plugin
+        classpath deps.kotlin.plugin
     }
 }
 
 allprojects {
+    addRepos(repositories)
+
     repositories {
         google()
         jcenter()
@@ -27,120 +27,4 @@ allprojects {
 
 task clean(type: Delete) {
     delete rootProject.buildDir
-}
-
-ext {
-    archCoreVersion = '1.1.1'
-
-    compileSdkVersion = 26
-    buildToolsVersion = '27.0.3'
-    targetSdkVersion = 26
-    minSdkVersion = 15
-
-    // libs
-    supportAppCompatVersion = '27.1.1'
-    supportDesignVersion = '27.1.1'
-    supportRecyclerViewV7Version = '27.1.1'
-
-    daggerVersion = '2.15'
-    daggerCompilerVersion = '2.15'
-
-    rxJavaVersion = '2.1.3'
-    rxAndroidVersion = '2.0.2'
-    javaxAnnotationVersion = '1.0'
-
-    retrofitVersion = '2.3.0'
-    retrofitRxJava2AdapterVersion = '2.3.0'
-    okHttpInterceptorVersion = '3.8.1'
-    gsonVersion = '2.7'
-    butterKnifeVersion = '8.8.1'
-    constraintLayoutVersion = '1.0.2'
-    icepickVersion = '3.2.0'
-    glideVersion = '4.6.1'
-    roomVersion = '1.1.0-beta2'
-
-    // unit test
-    junitVersion = '4.12'
-    hamcrestVersion = '1.3'
-    mockitoVersion = '2.8.9'
-
-    // instrumentation
-    espressoVersion = '3.0.1'
-    testRunnerVersion = '1.0.1'
-
-    presentationDependencies = [
-            kotlin:                 "org.jetbrains.kotlin:kotlin-stdlib:${kotlin_version}",
-            supportV4:              "com.android.support:support-v4:${supportAppCompatVersion}",
-            supportAppCompatv7:     "com.android.support:appcompat-v7:${supportAppCompatVersion}",
-            supportDesign:          "com.android.support:design:${supportDesignVersion}",
-            supportRecyclerViewV7:  "com.android.support:recyclerview-v7:${supportRecyclerViewV7Version}",
-            constaintLayout:        "com.android.support.constraint:constraint-layout:${constraintLayoutVersion}",
-            cardView:               "com.android.support:cardview-v7:${supportAppCompatVersion}",
-            daggerCompiler:         "com.google.dagger:dagger-compiler:${daggerCompilerVersion}",
-            dagger:                 "com.google.dagger:dagger:${daggerVersion}",
-            javaxAnnotation:        "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
-            rxAndroid:              "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
-            rxJava:                 "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
-            glide:                  "com.github.bumptech.glide:glide:${glideVersion}",
-            glideCompiler:          "com.github.bumptech.glide:compiler:${glideVersion}",
-            butterKnife:            "com.jakewharton:butterknife:${butterKnifeVersion}",
-            butterKnifeCompiler:    "com.jakewharton:butterknife-compiler:${butterKnifeVersion}",
-            archRuntime:            "android.arch.lifecycle:runtime:${archCoreVersion}",
-            archExtensions:          "android.arch.lifecycle:extensions:${archCoreVersion}",
-            archCompiler:           "android.arch.lifecycle:compiler:${archCoreVersion}"
-    ]
-
-    presentationTestDependencies = [
-            junit:      "junit:junit:${junitVersion}",
-            hamcrest:   "org.hamcrest:hamcrest-library:${hamcrestVersion}",
-            mockito:    "org.mockito:mockito-core:${mockitoVersion}",
-            runner:     "com.android.support.test:runner:${testRunnerVersion}",
-            espresso:   "com.android.support.test.espresso:espresso-core:${espressoVersion}"
-    ]
-
-    dataDependencies = [
-            kotlin:                 "org.jetbrains.kotlin:kotlin-stdlib:${kotlin_version}",
-            supportAppCompatv7:     "com.android.support:appcompat-v7:${supportAppCompatVersion}",
-            retrofit:               "com.squareup.retrofit2:retrofit:${retrofitVersion}",
-            retrofitGsonConverter:  "com.squareup.retrofit2:converter-gson:${retrofitVersion}",
-            retrofitRxAdapter:      "com.squareup.retrofit2:adapter-rxjava2:${retrofitRxJava2AdapterVersion}",
-            okHttpInterceptor:      "com.squareup.okhttp3:logging-interceptor:${okHttpInterceptorVersion}",
-            rxJava:                 "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
-            daggerCompiler:         "com.google.dagger:dagger-compiler:${daggerCompilerVersion}",
-            dagger:                 "com.google.dagger:dagger:${daggerVersion}",
-            javaxAnnotation:        "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
-            room:                   "android.arch.persistence.room:runtime:${roomVersion}",
-            roomCompiler:           "android.arch.persistence.room:compiler:${roomVersion}",
-            roomRxJava2:            "android.arch.persistence.room:rxjava2:${roomVersion}"
-    ]
-
-    dataTestDependencies = [
-            junit:      "junit:junit:${junitVersion}",
-            hamcrest:   "org.hamcrest:hamcrest-library:${hamcrestVersion}",
-            mockito:    "org.mockito:mockito-core:${mockitoVersion}",
-            runner:     "com.android.support.test:runner:${testRunnerVersion}",
-            espresso:   "com.android.support.test.espresso:espresso-core:${espressoVersion}",
-            roomTesting:"android.arch.persistence.room:testing:${roomVersion}",
-            archCore:   "android.arch.core:core-testing:${archCoreVersion}"
-    ]
-
-    domainDependencies = [
-            kotlin:                 "org.jetbrains.kotlin:kotlin-stdlib:${kotlin_version}",
-            rxJava:     "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
-            daggerCompiler:         "com.google.dagger:dagger-compiler:${daggerCompilerVersion}",
-            dagger:                 "com.google.dagger:dagger:${daggerVersion}",
-            javaxAnnotation:        "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
-    ]
-
-    domainTestDependencies = [
-            junit:      "junit:junit:${junitVersion}",
-            hamcrest:   "org.hamcrest:hamcrest-library:${hamcrestVersion}",
-            mockito:    "org.mockito:mockito-core:${mockitoVersion}",
-            runner:     "com.android.support.test:runner:${testRunnerVersion}",
-            archCore:   "android.arch.core:core-testing:${archCoreVersion}"
-    ]
-
-    mvpDependencies = [
-            kotlin:     "org.jetbrains.kotlin:kotlin-stdlib:${kotlin_version}"
-    ]
 }

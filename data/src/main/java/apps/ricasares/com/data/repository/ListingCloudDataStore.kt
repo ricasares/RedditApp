@@ -20,7 +20,7 @@ class ListingCloudDataStore @Inject constructor(
     }
 
     override fun getListings(subReddit: String, listing: String, after: String, limit: Int): Single<RedditResponse> {
-        return redditApi.getListing(subReddit, listing, after, limit.toString())
+        return redditApi.getListings(subReddit, listing, after, limit.toString())
                 .doOnSuccess{ response -> diskCache.saveListings(response).blockingAwait() }
     }
 

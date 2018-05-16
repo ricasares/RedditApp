@@ -3,8 +3,7 @@ apply plugin: 'kotlin'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    def dependencies = rootProject.ext.mvpDependencies
-    implementation dependencies.kotlin
+    implementation deps.kotlin.stdlib
 }
 
 sourceCompatibility = "1.7"
