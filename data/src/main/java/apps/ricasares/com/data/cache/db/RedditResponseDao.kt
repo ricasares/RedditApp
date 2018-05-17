@@ -12,7 +12,7 @@ import io.reactivex.Single
 @Dao
 interface RedditResponseDao {
     @Query("SELECT * FROM posts WHERE subreddit = :subreddit ORDER BY indexInResponse ASC")
-    fun getBySubbreddit(subreddit : String) : Single<ChildrenData>
+    fun getBySubreddit(subreddit : String) : Single<ChildrenData>
 
     @Insert
     fun insert(posts: List<ChildrenData>)

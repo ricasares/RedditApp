@@ -26,9 +26,9 @@ class ListingMemoryDataStoreTest {
         memoryStore = ListingMemoryDataStore(cache)
     }
 
-    @Test
+    @Test(expected = UnsupportedOperationException::class)
     fun testGetAllListings() {
-        mockCacheGetAll(Flowable.just(RedditResponseFactory.makeRedditResponse(2)))
+        mockCacheGetAll("all", Flowable.just(RedditResponseFactory.makeRedditResponse(2)))
         val testObserver = memoryStore.getListings().test()
         testObserver.awaitTerminalEvent()
         testObserver.assertComplete()
@@ -61,8 +61,8 @@ class ListingMemoryDataStoreTest {
         Mockito.verify(cache).clearListings()
     }
 
-    private fun mockCacheGetAll(single: Flowable<RedditResponse>) {
-        Mockito.`when`(cache.getListings()).thenReturn(single)
+    private fun mockCacheGetAll(subreddit: String, single: Flowable<RedditResponse>) {
+        Mockito.`when`(cache.getListings(subreddit)).thenReturn(single)
     }
 
     private fun mockCacheSaveResponse(completable: Completable) {

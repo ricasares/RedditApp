@@ -18,10 +18,6 @@ class ListingMapperTest {
         val redditResponse = RedditResponseFactory.makeRedditResponse(2)
         val listing = mapper.mapEntityToModel(redditResponse)
 
-        assertEquals(redditResponse.kind, listing.kind)
-        assertEquals(redditResponse.data.before, listing.before)
-        assertEquals(redditResponse.data.after, listing.after)
-        assertEquals(redditResponse.data.modhash, listing.modhash)
         assertThat(listing.entries.size, `is`(redditResponse.data.children.size))
         for (i in 0 until redditResponse.data.children.size) {
             var childrenResponse = redditResponse.data.children.get(i)

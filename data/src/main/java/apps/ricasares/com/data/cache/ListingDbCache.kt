@@ -1,6 +1,8 @@
 package apps.ricasares.com.data.cache
 
 import apps.ricasares.com.data.cache.db.RedditDb
+import apps.ricasares.com.data.entity.Children
+import apps.ricasares.com.data.entity.RedditData
 import apps.ricasares.com.data.entity.RedditResponse
 import io.reactivex.Completable
 import io.reactivex.Flowable
@@ -12,11 +14,11 @@ import javax.inject.Inject
  * Created by ricardo Casarez on 3/21/18.
  */
 class ListingDbCache @Inject constructor(private val db: RedditDb) : ListingCache {
-    internal var redditResponse: RedditResponse = RedditResponse()
+    internal var redditResponse: RedditResponse = RedditResponse(RedditData(listOf()))
 
     override fun clearListings(): Completable {
         return Completable.fromAction {
-            redditResponse = RedditResponse()
+            redditResponse = RedditResponse(RedditData(listOf()))
         }
     }
 
@@ -34,7 +36,8 @@ class ListingDbCache @Inject constructor(private val db: RedditDb) : ListingCach
         }
     }
 
-    override fun getListings(): Flowable<RedditResponse> {
+    override fun getListings(subreddit: String): Flowable<RedditResponse> {
+        db.posts().getBySubreddit(subreddit)
         return Flowable.just(redditResponse)
     }
 

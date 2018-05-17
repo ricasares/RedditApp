@@ -15,7 +15,7 @@ import apps.ricasares.com.domain.model.PostHint
 class ListingFactory {
     companion object {
         fun makeListing(count: Int) :Listing {
-            return Listing(randomString(), randomString(), randomString(), randomString(), makeEntryList(count))
+            return Listing(makeEntryList(count))
         }
 
         fun makeEntry() : Entry {

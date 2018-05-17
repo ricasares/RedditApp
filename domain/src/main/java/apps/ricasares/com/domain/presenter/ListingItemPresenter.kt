@@ -11,7 +11,7 @@ import java.util.*
  * Created by ricardo casarez on 3/29/18.
  */
 class ListingItemPresenter : StatelessPresenter<ListingItemView>() {
-    private var mListing: Listing = Listing()
+    private var mListing: Listing = Listing(listOf())
 
     fun setListing(listing: Listing) {
         mListing = listing

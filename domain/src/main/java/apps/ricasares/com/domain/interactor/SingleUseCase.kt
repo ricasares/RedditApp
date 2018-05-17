@@ -14,7 +14,7 @@ abstract class SingleUseCase<T, in Params> (
         private val subscribeOn: SubscribeOn,
         private val observeOn: ObserveOn) {
 
-    private val disposables: CompositeDisposable = CompositeDisposable()
+    private val disposable: CompositeDisposable = CompositeDisposable()
 
     protected abstract fun buildUseCaseObservable(params: Params? = null): Single<T>
 
@@ -26,12 +26,12 @@ abstract class SingleUseCase<T, in Params> (
     }
 
     fun dispose() {
-        if (!disposables.isDisposed) {
-            disposables.dispose()
+        if (!disposable.isDisposed) {
+            disposable.dispose()
         }
     }
 
-    private fun addDisposable(disposable: Disposable) {
-        disposables.add(disposable)
+    protected fun addDisposable(disposable: Disposable) {
+        this.disposable.add(disposable)
     }
 }

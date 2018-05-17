@@ -13,17 +13,15 @@ import apps.ricasares.com.domain.model.PostHint
 class RedditResponseFactory {
     companion object {
         fun makeRedditResponse(count: Int) : RedditResponse {
-            return RedditResponse(randomString(), makeDataResponse(count))
+            return RedditResponse(makeDataResponse(count))
         }
 
         fun makeRedditResponse(count: Int, type: String) : RedditResponse {
-            return RedditResponse(type, makeDataResponse(count))
+            return RedditResponse(makeDataResponse(count))
         }
 
-        fun makeDataResponse(count: Int) : ObjectData {
-            return ObjectData(
-                    randomString(),
-                    randomString(),
+        fun makeDataResponse(count: Int) : RedditData {
+            return RedditData(
                     randomString(),
                     randomString(),
                     makeChildrenResponseList(count)
@@ -39,7 +37,7 @@ class RedditResponseFactory {
         }
 
         fun makeChildrenResponse() : Children {
-            return Children(randomString(), makeLink())
+            return Children(makeLink())
         }
 
         fun makeMedia() : Media {

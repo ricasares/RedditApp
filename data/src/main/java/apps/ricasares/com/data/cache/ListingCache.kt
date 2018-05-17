@@ -22,7 +22,7 @@ interface ListingCache {
     /**
      * Gets the cached response.
      */
-    fun getListings() : Flowable<RedditResponse>
+    fun getListings(subbReddit: String) : Flowable<RedditResponse>
 
     /**
      * Determines if cache data is available.

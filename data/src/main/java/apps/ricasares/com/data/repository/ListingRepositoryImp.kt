@@ -13,12 +13,12 @@ class ListingRepositoryImp @Inject constructor(
         private val dataStoreFactory: ListingDataStoreFactory,
         private val listingMapper: ListingMapper) : ListingRepository {
 
-    private val emptyListing = Listing()
+    private val emptyListing = Listing(listOf())
 
     override fun getListings(subReddit: String, listing: String, after: String, limit: Int): Single<Listing> {
         return Single.concat(
-                        dataStoreFactory.getMemoryDataStore().getListings(),
-                        dataStoreFactory.getDiskDataStore().getListings(),
+                        dataStoreFactory.getMemoryDataStore().getListings(subReddit, listing, after, limit),
+                        dataStoreFactory.getDiskDataStore().getListings(subReddit, listing, after, limit),
                         dataStoreFactory.getCloudDataStore().getListings(subReddit, listing, after, limit)
                 ).filter {
                     response -> !response.data.children.isEmpty()

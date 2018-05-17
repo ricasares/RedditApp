@@ -29,7 +29,7 @@ class ListingMemoryCacheTest {
     fun testGetListings() {
         val redditResponse = RedditResponseFactory.makeRedditResponse(10)
         cache.saveListings(redditResponse).subscribe()
-        var testObserver = cache.getListings().test()
+        var testObserver = cache.getListings("subreddit").test()
         testObserver.assertComplete()
         testObserver.assertValue(redditResponse)
     }

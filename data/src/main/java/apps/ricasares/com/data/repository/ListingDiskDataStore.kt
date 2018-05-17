@@ -13,12 +13,11 @@ class ListingDiskDataStore constructor(
         private val memoryCache: ListingCache) : ListingDataStore {
 
     override fun getListings(): Single<RedditResponse> {
-        return diskCache.getListings()
-                .singleOrError()
+        throw UnsupportedOperationException("unsupported operation")
     }
 
     override fun getListings(subReddit: String, listing: String, after: String, limit: Int): Single<RedditResponse> {
-        return diskCache.getListings()
+        return diskCache.getListings(subReddit)
                 .singleOrError()
     }
 

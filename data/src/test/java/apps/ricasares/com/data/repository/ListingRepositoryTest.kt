@@ -3,7 +3,7 @@ package apps.ricasares.com.data.repository
 import apps.ricasares.com.data.factory.DataFactory.Companion.randomInt
 import apps.ricasares.com.data.factory.DataFactory.Companion.randomString
 import apps.ricasares.com.data.factory.RedditResponseFactory
-import apps.ricasares.com.data.entity.ObjectData
+import apps.ricasares.com.data.entity.RedditData
 import apps.ricasares.com.data.entity.RedditResponse
 import apps.ricasares.com.data.entity.mapper.ListingMapper
 import apps.ricasares.com.domain.model.Listing
@@ -54,9 +54,9 @@ class ListingRepositoryTest {
     @Test
     fun testGetNoMemoryNoDisk() {
         // mock sources
-        mockMemoryDataStoreGetListing(Single.just(RedditResponse(MEMORY_KIND, mock(ObjectData::class.java))))
+        mockMemoryDataStoreGetListing(Single.just(RedditResponse(mock(RedditData::class.java))))
 
-        mockDiskDataStoreGetListing(Single.just(RedditResponse(DISK_KIND, mock(ObjectData::class.java))))
+        mockDiskDataStoreGetListing(Single.just(RedditResponse(mock(RedditData::class.java))))
 
         var redditReponse: RedditResponse = RedditResponseFactory.makeRedditResponse(5, CLOUD_KIND)
         mockCloudDataStoreGetListing(Single.just(redditReponse))
@@ -66,7 +66,7 @@ class ListingRepositoryTest {
         testObserver.awaitTerminalEvent()
         testObserver.assertComplete()
         testObserver.assertValue({
-            listing -> listing.entries.size == 5 && listing.kind.equals(CLOUD_KIND)
+            listing -> listing.entries.size == 5
         })
     }
 
@@ -75,7 +75,7 @@ class ListingRepositoryTest {
      */
     @Test
     fun testGetNoMemory() {
-        mockMemoryDataStoreGetListing(Single.just(RedditResponse(MEMORY_KIND, mock(ObjectData::class.java))))
+        mockMemoryDataStoreGetListing(Single.just(RedditResponse(mock(RedditData::class.java))))
         val diskRedditResponse = RedditResponseFactory.makeRedditResponse(4, DISK_KIND)
 
         mockDiskDataStoreGetListing(Single.just(diskRedditResponse))
@@ -87,7 +87,7 @@ class ListingRepositoryTest {
         testObserver.awaitTerminalEvent()
         testObserver.assertComplete()
         testObserver.assertValue({
-            value -> value.entries.size == 4 && value.kind.equals(DISK_KIND)
+            value -> value.entries.size == 4
         })
     }
 
@@ -109,7 +109,7 @@ class ListingRepositoryTest {
         testObserver.awaitTerminalEvent()
         testObserver.assertComplete()
         testObserver.assertValue({
-            value -> value.entries.size == 1 && value.kind.equals(MEMORY_KIND)
+            value -> value.entries.size == 1
         })
     }
 
@@ -118,9 +118,9 @@ class ListingRepositoryTest {
      */
     @Test
     fun testNoSource() {
-        mockMemoryDataStoreGetListing(Single.just(RedditResponse(MEMORY_KIND, mock(ObjectData::class.java))))
-        mockDiskDataStoreGetListing(Single.just(RedditResponse(DISK_KIND, mock(ObjectData::class.java))))
-        mockCloudDataStoreGetListing(Single.just(RedditResponse(CLOUD_KIND, mock(ObjectData::class.java))))
+        mockMemoryDataStoreGetListing(Single.just(RedditResponse(mock(RedditData::class.java))))
+        mockDiskDataStoreGetListing(Single.just(RedditResponse(mock(RedditData::class.java))))
+        mockCloudDataStoreGetListing(Single.just(RedditResponse(mock(RedditData::class.java))))
 
         var testObserver = repository.getListings(randomString(), randomString(), randomString(), randomInt()).test()
         testObserver.awaitTerminalEvent()
@@ -131,11 +131,11 @@ class ListingRepositoryTest {
     }
 
     private fun mockMemoryDataStoreGetListing(single: Single<RedditResponse>) {
-        `when`(memory.getListings()).thenReturn(single)
+        `when`(memory.getListings(anyString(), anyString(), anyString(), anyInt())).thenReturn(single)
     }
 
     private fun mockDiskDataStoreGetListing(single: Single<RedditResponse>) {
-        `when`(disk.getListings()).thenReturn(single)
+        `when`(disk.getListings(anyString(), anyString(), anyString(), anyInt())).thenReturn(single)
     }
 
     private fun mockCloudDataStoreGetListing(single: Single<RedditResponse>) {

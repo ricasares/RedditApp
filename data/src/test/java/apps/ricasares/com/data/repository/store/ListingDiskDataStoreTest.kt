@@ -28,9 +28,9 @@ class ListingDiskDataStoreTest {
         diskStore = ListingDiskDataStore(cache, memory)
     }
 
-    @Test
+    @Test(expected = UnsupportedOperationException::class)
     fun testGetAllListings() {
-        mockCacheGetAll(Flowable.just(RedditResponseFactory.makeRedditResponse(2)))
+        mockCacheGetAll("all", Flowable.just(RedditResponseFactory.makeRedditResponse(2)))
         val testObserver = diskStore.getListings().test()
         testObserver.awaitTerminalEvent()
         testObserver.assertComplete()
@@ -68,8 +68,8 @@ class ListingDiskDataStoreTest {
         verify(memory).clearListings()
     }
 
-    private fun mockCacheGetAll(single: Flowable<RedditResponse>) {
-        `when`(cache.getListings()).thenReturn(single)
+    private fun mockCacheGetAll(subreddit: String, single: Flowable<RedditResponse>) {
+        `when`(cache.getListings(subreddit)).thenReturn(single)
     }
 
     private fun mockCacheSaveResponse(completable: Completable) {

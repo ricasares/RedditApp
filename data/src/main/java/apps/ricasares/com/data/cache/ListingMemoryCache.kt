@@ -1,5 +1,6 @@
 package apps.ricasares.com.data.cache
 
+import apps.ricasares.com.data.entity.RedditData
 import apps.ricasares.com.data.entity.RedditResponse
 import io.reactivex.Completable
 import io.reactivex.Flowable
@@ -11,11 +12,11 @@ import io.reactivex.Single
  */
 class ListingMemoryCache : ListingCache {
     // todo implement db
-    internal var redditResponse: RedditResponse = RedditResponse()
+    internal var redditResponse: RedditResponse = RedditResponse(RedditData(listOf()))
 
     override fun clearListings(): Completable {
         return Completable.fromAction {
-            redditResponse = RedditResponse()
+            redditResponse = RedditResponse(RedditData(listOf()))
         }
     }
 
@@ -25,7 +26,7 @@ class ListingMemoryCache : ListingCache {
         }
     }
 
-    override fun getListings(): Flowable<RedditResponse> {
+    override fun getListings(subreddit: String): Flowable<RedditResponse> {
         return Flowable.just(redditResponse)
     }
 

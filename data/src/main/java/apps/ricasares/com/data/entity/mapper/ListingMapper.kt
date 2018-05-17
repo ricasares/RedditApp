@@ -39,6 +39,6 @@ open class ListingMapper : Mapper<RedditResponse, Listing> {
             }
             entries.add(Entry(link.title, link.subreddit, link.url, link.score, link.num_comments, link.created, isGif, postHint, imagePreview))
         }
-        return Listing(source.kind, source.data.before, source.data.after, source.data.modhash, entries)
+        return Listing(entries)
     }
 }

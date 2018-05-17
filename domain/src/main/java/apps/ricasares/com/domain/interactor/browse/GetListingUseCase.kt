@@ -6,6 +6,7 @@ import apps.ricasares.com.domain.repository.ListingRepository
 import apps.ricasares.com.domain.schedulers.ObserveOn
 import apps.ricasares.com.domain.schedulers.SubscribeOn
 import io.reactivex.Single
+import io.reactivex.observers.DisposableSingleObserver
 import javax.inject.Inject
 
 /**
@@ -16,8 +17,13 @@ class GetListingUseCase @Inject constructor(
         subscribeOn: SubscribeOn,
         observeOn: ObserveOn) : SingleUseCase<Listing, GetListingUseCase.Params>(subscribeOn, observeOn) {
 
-    override public fun buildUseCaseObservable(params: Params?): Single<Listing> {
+    public override fun buildUseCaseObservable(params: Params?): Single<Listing> {
         return listingRepository.getListings(params!!.subReddit, params!!.listing, params!!.after, params!!.limit)
+    }
+
+    override fun execute(observer: DisposableSingleObserver<Listing>, params: Params?) {
+        addDisposable(buildUseCaseObservable(params)
+                .subscribeWith(observer))
     }
 
     data class Params (
