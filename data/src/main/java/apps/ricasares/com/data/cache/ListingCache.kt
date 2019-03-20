@@ -1,5 +1,6 @@
 package apps.ricasares.com.data.cache
 
+import apps.ricasares.com.data.entity.ChildrenData
 import apps.ricasares.com.data.entity.RedditResponse
 import io.reactivex.Completable
 import io.reactivex.Flowable
@@ -17,12 +18,17 @@ interface ListingCache {
     /**
      * Saves the response into cache.
      */
-    fun saveListings(response: RedditResponse) : Completable
+    fun saveListings(data: List<ChildrenData>) : Completable
 
     /**
      * Gets the cached response.
      */
-    fun getListings(subbReddit: String) : Flowable<RedditResponse>
+    fun getListings() : Single<List<ChildrenData>>
+
+    /**
+     * Gets the cached response.
+     */
+    fun getListings(subbReddit: String) : Single<List<ChildrenData>>
 
     /**
      * Determines if cache data is available.

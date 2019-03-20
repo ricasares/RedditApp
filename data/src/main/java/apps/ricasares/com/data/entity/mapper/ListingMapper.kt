@@ -13,7 +13,7 @@ import apps.ricasares.com.domain.model.PostHint
  * Created by ricardo casarez on 11/20/17.
  */
 open class ListingMapper : Mapper<RedditResponse, Listing> {
-    override fun mapEntityToModel(source: RedditResponse) : Listing {
+    override fun map(source: RedditResponse) : Listing {
         var entries: MutableList<Entry> = mutableListOf()
         for (children: Children in source.data.children) {
             val link: ChildrenData = children.data

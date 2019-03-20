@@ -47,12 +47,24 @@ dependencies {
     testImplementation deps.junit
     testImplementation deps.mockito.core
     testImplementation deps.arch_core.testing
+    testImplementation deps.room.testing
 
     androidTestImplementation deps.junit
+    androidTestImplementation deps.mockito.core
     androidTestImplementation deps.test_support_library.runner
     androidTestImplementation deps.test_support_library.rules
 }
 
 repositories {
     mavenCentral()
+}
+
+android.sourceSets {
+    test {
+        java.srcDirs += "$projectDir/src/testShared"
+    }
+
+    androidTest {
+        java.srcDirs += "$projectDir/src/testShared"
+    }
 }

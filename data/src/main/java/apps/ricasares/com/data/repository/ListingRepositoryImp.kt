@@ -23,7 +23,7 @@ class ListingRepositoryImp @Inject constructor(
                 ).filter {
                     response -> !response.data.children.isEmpty()
                 }
-                .map { it -> listingMapper.mapEntityToModel(it) }
+                .map { it -> listingMapper.map(it) }
                 .first(emptyListing)
     }
 }

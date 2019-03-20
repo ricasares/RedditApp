@@ -40,6 +40,14 @@ class RedditResponseFactory {
             return Children(makeLink())
         }
 
+        fun makeChildreDataList(count: Int) : List<ChildrenData>{
+            var list = mutableListOf<ChildrenData>()
+            for (i in 0 until count) {
+                list.add(makeLink())
+            }
+            return list
+        }
+
         fun makeMedia() : Media {
             return Media(
                     makeRedditVideo(),

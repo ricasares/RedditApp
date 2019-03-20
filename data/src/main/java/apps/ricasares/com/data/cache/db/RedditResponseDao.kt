@@ -11,8 +11,11 @@ import io.reactivex.Single
  */
 @Dao
 interface RedditResponseDao {
+    @Query("SELECT * FROM posts ORDER BY indexInResponse ASC")
+    fun getAll() : Single<List<ChildrenData>>
+
     @Query("SELECT * FROM posts WHERE subreddit = :subreddit ORDER BY indexInResponse ASC")
-    fun getBySubreddit(subreddit : String) : Single<ChildrenData>
+    fun getBySubreddit(subreddit : String) : Single<List<ChildrenData>>
 
     @Insert
     fun insert(posts: List<ChildrenData>)
@@ -22,4 +25,7 @@ interface RedditResponseDao {
 
     @Query("DELETE FROM posts WHERE subreddit = :subreddit")
     fun deleteBySubreddit(subreddit: String)
+
+    @Query("DELETE FROM posts")
+    fun deleteAll()
 }

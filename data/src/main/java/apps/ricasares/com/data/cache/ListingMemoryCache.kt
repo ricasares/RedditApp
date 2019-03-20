@@ -11,6 +11,10 @@ import io.reactivex.Single
  * Created by ricardo casarez on 1/24/18.
  */
 class ListingMemoryCache : ListingCache {
+    override fun getListings(): Flowable<RedditResponse> {
+        return Flowable.just(redditResponse)
+    }
+
     // todo implement db
     internal var redditResponse: RedditResponse = RedditResponse(RedditData(listOf()))
 

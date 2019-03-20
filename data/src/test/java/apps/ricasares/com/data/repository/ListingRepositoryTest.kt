@@ -143,6 +143,6 @@ class ListingRepositoryTest {
     }
 
     private fun mockMapper(redditResponse: RedditResponse, listing: Listing) {
-        `when`(mapper.mapEntityToModel(redditResponse)).thenReturn(listing)
+        `when`(mapper.map(redditResponse)).thenReturn(listing)
     }
 }

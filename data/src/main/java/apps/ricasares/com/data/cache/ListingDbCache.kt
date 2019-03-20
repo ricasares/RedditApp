@@ -2,8 +2,10 @@ package apps.ricasares.com.data.cache
 
 import apps.ricasares.com.data.cache.db.RedditDb
 import apps.ricasares.com.data.entity.Children
+import apps.ricasares.com.data.entity.ChildrenData
 import apps.ricasares.com.data.entity.RedditData
 import apps.ricasares.com.data.entity.RedditResponse
+import apps.ricasares.com.data.entity.mapper.ChildrenMapper
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single
@@ -14,35 +16,29 @@ import javax.inject.Inject
  * Created by ricardo Casarez on 3/21/18.
  */
 class ListingDbCache @Inject constructor(private val db: RedditDb) : ListingCache {
-    internal var redditResponse: RedditResponse = RedditResponse(RedditData(listOf()))
 
     override fun clearListings(): Completable {
         return Completable.fromAction {
-            redditResponse = RedditResponse(RedditData(listOf()))
+            db.posts().deleteAll()
         }
     }
 
-    override fun saveListings(response: RedditResponse): Completable {
+    override fun saveListings(response: List<ChildrenData>): Completable {
         return Completable.fromAction {
-            response.data.children.let { posts ->
-                db.runInTransaction {
-                    val items = posts.mapIndexed { index, child ->
-                        child.data
-                    }
-                    db.posts().insert(items)
-                }
-            }
-            redditResponse = response
+            db.posts().insert(response)
         }
     }
 
-    override fun getListings(subreddit: String): Flowable<RedditResponse> {
-        db.posts().getBySubreddit(subreddit)
-        return Flowable.just(redditResponse)
+    override fun getListings(): Single<List<ChildrenData>> {
+        return db.posts().getAll()
+    }
+
+    override fun getListings(subreddit: String): Single<List<ChildrenData>> {
+        return db.posts().getBySubreddit(subreddit)
     }
 
     override fun isCached(): Single<Boolean> {
-        return Single.just(!redditResponse.data.children.isEmpty())
+        return Single.fromCallable { false }
     }
 
     override fun setLastCacheTime(time: Long) {
